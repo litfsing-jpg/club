@@ -42,3 +42,4 @@ export class BookFormatsParser {
     return { html, totalBlocks: blockIndex };
   }
 }
+

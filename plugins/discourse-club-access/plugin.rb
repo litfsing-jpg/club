@@ -36,3 +36,4 @@ after_initialize do
     mount ::ClubAccess::Engine, at: "/club"
   end
 end
+

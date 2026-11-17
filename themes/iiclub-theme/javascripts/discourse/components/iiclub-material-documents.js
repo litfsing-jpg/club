@@ -34,3 +34,4 @@ export default class IiclubMaterialDocuments extends Component {
     window.open(doc.readerUrl, "_blank");
   }
 }
+

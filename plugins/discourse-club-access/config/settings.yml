@@ -9,3 +9,4 @@ plugins:
     default: "club_members"
   club_access_getcourse_url:
     default: "https://edu.malovnik.ru"
+

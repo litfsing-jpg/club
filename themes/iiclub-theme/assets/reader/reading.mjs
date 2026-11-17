@@ -107,3 +107,4 @@ export class ClubReadingTracker {
     containerElement.querySelectorAll("[data-block-index]").forEach(el => observer.observe(el));
   }
 }
+

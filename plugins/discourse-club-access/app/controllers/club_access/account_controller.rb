@@ -76,3 +76,4 @@ module ::ClubAccess
     end
   end
 end
+

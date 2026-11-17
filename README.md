@@ -79,3 +79,4 @@ docker compose up -d
 
 ## 📜 Лицензия
 MIT
+

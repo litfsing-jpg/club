@@ -82,3 +82,4 @@ categories.each do |cat_data|
 end
 
 puts "=== Посев категорий завершен! ==="
+

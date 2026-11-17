@@ -37,3 +37,4 @@ hooks:
           - git clone https://github.com/discourse/discourse-checklist.git
           # Кастомный плагин доступа в клуб
           - cp -r /var/www/discourse/local_plugins/discourse-club-access $home/plugins/
+

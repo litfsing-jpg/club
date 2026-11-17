@@ -26,3 +26,4 @@ docker compose exec app bundle exec rake db:migrate
 docker compose exec app bundle exec rails runner /var/www/discourse/scripts/seed_categories.rb
 
 echo "=== Инициализация успешно завершена! Портал доступен на http://localhost:3000 ==="
+
