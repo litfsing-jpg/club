@@ -672,6 +672,172 @@
       color: var(--text-muted);
       margin-top: auto;
     }
+
+    /* Всплывающие Toast-уведомления (вместо системных alert) */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 99999;
+      pointer-events: none;
+    }
+    .toast {
+      background: var(--primary);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 8px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.22);
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      pointer-events: auto;
+      animation: toastSlideIn 0.25s ease-out;
+      transition: opacity 0.3s, transform 0.3s;
+      max-width: 380px;
+      line-height: 1.4;
+    }
+    .toast-success { background: #183f37; border-left: 4px solid #48bb78; }
+    .toast-info { background: #23201b; border-left: 4px solid #ecc94b; }
+    .toast-error { background: #742a2a; border-left: 4px solid #f56565; }
+    @keyframes toastSlideIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Стили экрана темы/статьи (Topic Detail View) */
+    .topic-breadcrumbs {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .topic-breadcrumbs a {
+      color: var(--tertiary);
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .topic-breadcrumbs a:hover {
+      text-decoration: underline;
+    }
+    .topic-body {
+      font-size: 0.975rem;
+      line-height: 1.7;
+      color: var(--text);
+      margin-top: 18px;
+    }
+    .topic-body h3 {
+      font-size: 1.25rem;
+      margin: 24px 0 12px;
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .topic-body h4 {
+      font-size: 1.05rem;
+      margin: 18px 0 8px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .topic-body p {
+      margin-bottom: 14px;
+    }
+    .topic-body ul, .topic-body ol {
+      margin: 12px 0 16px 24px;
+    }
+    .topic-body li {
+      margin-bottom: 6px;
+    }
+    .topic-body pre {
+      background: #1e1b18;
+      color: #f0ede6;
+      padding: 16px 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      line-height: 1.5;
+      margin: 16px 0;
+      border: 1px solid #333;
+      position: relative;
+    }
+    .topic-body code {
+      font-family: var(--font-mono);
+      background: #f0ede6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.88em;
+      color: #8c3b2b;
+    }
+    .topic-body pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+    }
+    .topic-body blockquote {
+      border-left: 4px solid var(--tertiary);
+      padding: 12px 18px;
+      background: #f6f8f6;
+      margin: 16px 0;
+      color: #2d3748;
+      border-radius: 0 6px 6px 0;
+    }
+    .topic-replies-section {
+      margin-top: 32px;
+      border-top: 2px solid var(--border);
+      padding-top: 24px;
+    }
+    .reply-card {
+      display: flex;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .reply-card:last-child {
+      border-bottom: none;
+    }
+    .reply-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--tertiary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+    .reply-content {
+      flex: 1;
+    }
+    .reply-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .reply-author {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+    .reply-time {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .reply-text {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--text);
+    }
   </style>
 </head>
 <body>
@@ -932,6 +1098,75 @@
           </div>
         </div>
 
+        <!-- Экран 4: Просмотр конкретной темы (полный текст статьи/поста) -->
+        <div id="viewTopicDetail" style="display: none;">
+          <div class="card">
+            <div class="topic-breadcrumbs">
+              <a href="javascript:void(0)" id="topicBreadcrumbCat" onclick="backToCategoryList()">← Назад в раздел</a>
+              <span>/</span>
+              <span id="topicBreadcrumbTitle" style="color: var(--text-muted); font-weight: 500;"></span>
+            </div>
+
+            <div class="post-author-bar">
+              <div class="author-info">
+                <div class="author-avatar" id="topicAuthorAvatar">Н</div>
+                <div>
+                  <div class="author-name" id="topicAuthorName">Никита</div>
+                  <div class="author-role" id="topicAuthorRole">Основатель</div>
+                </div>
+              </div>
+              <div class="post-date" id="topicDate">15 ноября 2026 г.</div>
+            </div>
+
+            <h1 class="article-title" id="topicDetailTitle" style="margin-top: 14px;"></h1>
+
+            <!-- Медиа блок темы (если видео или методичка) -->
+            <div id="topicMediaContainer" style="display: none; margin: 18px 0;"></div>
+
+            <!-- Тело поста темы -->
+            <div class="topic-body" id="topicDetailBody"></div>
+
+            <!-- Реакции к посту -->
+            <div class="post-actions" style="margin-top: 24px;">
+              <div class="post-reactions">
+                <button class="post-reaction-btn" onclick="toggleReaction(this)">
+                  <span>❤️</span> <span class="react-count">34</span>
+                </button>
+                <button class="post-reaction-btn" onclick="toggleReaction(this)">
+                  <span>🔥</span> <span class="react-count">58</span>
+                </button>
+                <button class="post-reaction-btn" onclick="toggleReaction(this)">
+                  <span>🚀</span> <span class="react-count">21</span>
+                </button>
+                <button class="post-reaction-btn" onclick="toggleReaction(this)">
+                  <span>💡</span> <span class="react-count">37</span>
+                </button>
+              </div>
+              <button class="btn btn-outline btn-sm" onclick="saveTopicBookmark()">
+                ☆ В закладки
+              </button>
+            </div>
+
+            <!-- Секция ответов/обсуждения (Discourse replies) -->
+            <div class="topic-replies-section">
+              <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 16px;">
+                💬 Ответы участников клуба (<span id="topicRepliesCount">0</span>)
+              </h3>
+              <div id="topicRepliesList"></div>
+
+              <!-- Форма быстрого ответа в тему -->
+              <div style="margin-top: 20px; background: #fbf9f4; border: 1px solid var(--border); border-radius: 8px; padding: 14px;">
+                <div style="font-size: 0.85rem; font-weight: 600; margin-bottom: 6px;">Ответить в тему как sanohes@gmail.com:</div>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" id="topicReplyInput" placeholder="Напишите ответ или вопрос..." class="form-input" style="flex: 1;" onkeydown="if(event.key==='Enter') sendTopicReply()">
+                  <button class="btn btn-primary btn-sm" onclick="sendTopicReply()">Отправить ответ</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
         <!-- Экран 3: Чат клуба (Discourse Chat) -->
         <div id="viewChat" style="display: none;">
           <section class="card" style="padding: 0;">
@@ -1041,45 +1276,312 @@
   </footer>
 
   <script>
-    // База данных категорий и тем
+    // Всплывающие уведомления Toast вместо системных alert
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+      const t = document.createElement('div');
+      t.className = `toast toast-${type}`;
+      let icon = 'ℹ️';
+      if (type === 'success') icon = '✅';
+      if (type === 'error') icon = '⚠️';
+      t.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
+      container.appendChild(t);
+      setTimeout(() => {
+        t.style.opacity = '0';
+        t.style.transform = 'translateY(10px)';
+        setTimeout(() => t.remove(), 300);
+      }, 3500);
+    }
+
+    // База данных категорий и полных статей/топиков
     const categoryData = {
       announcements: {
         title: "📢 Анонсы",
         desc: "Анонсы ближайших эфиров, мастер-классов и клубных мероприятий.",
         topics: [
-          { title: "Эфир в четверг: Разбор автономных агентов и практические кейсы", author: "Никита", date: "Вчера", views: 450, replies: 18 },
-          { title: "Встреча клуба в Zoom: Сессия ответов на вопросы участников", author: "Михаил", date: "3 дня назад", views: 820, replies: 34 }
+          {
+            title: "Эфир в четверг: Разбор автономных агентов и практические кейсы",
+            author: "Никита",
+            role: "Основатель",
+            avatar: "Н",
+            avatarBg: "#183f37",
+            date: "16 ноября 2026 г.",
+            views: 450,
+            replies: 18,
+            isVideo: false,
+            contentHtml: `
+              <p>Первопроходцы, приветствую! В этот четверг в <strong>20:00 по МСК</strong> проводим большой практический эфир по проектированию и запуску автономных агентных систем.</p>
+              
+              <h3>Что разберем на эфире:</h3>
+              <ul>
+                <li><strong>Архитектура Autopilot 2.0:</strong> почему пошаговая верификация каждого тикета надежнее, чем слепая генерация всего проекта сразу.</li>
+                <li><strong>Интеграция MCP и Chrome DevTools:</strong> как давать агенту глаза и руки для реверс-инжиниринга и живого тестирования интерфейсов.</li>
+                <li><strong>Разбор реального кейса:</strong> пошаговый разбор сборки закрытого портала со стеком Discourse, Ember.js и авторизацией GetCourse.</li>
+                <li><strong>Ответы на вопросы и разбор ваших проектов:</strong> открытый микрофон во второй части эфира.</li>
+              </ul>
+
+              <blockquote>
+                <strong>Важно:</strong> Запись эфира, слайды презентации и исходники скриптов будут опубликованы на следующий день в разделе «Записи эфиров».
+              </blockquote>
+
+              <h4>Подготовка:</h4>
+              <p>Для тех, кто хочет повторять шаги во время эфира, рекомендуем установить Node.js 20+, Python 3.11+ и запустить локальный терминал. Вопросы к эфиру можно писать прямо в комментарии к этой теме или в чат <code>#разборы-кейсов</code>.</p>
+            `,
+            repliesList: [
+              { author: "Михаил (Куратор)", avatar: "М", avatarBg: "#a8402c", time: "Вчера в 18:30", text: "Материалы к эфиру и чек-лист готовности уже загружены на сервер. Ждем всех в четверг!" },
+              { author: "sanohes (Иван)", avatar: "S", avatarBg: "#a88e4f", time: "Вчера в 19:10", text: "Отличный план! Подготовил пару вопросов по тестированию через Chrome Remote Debugging." },
+              { author: "Дмитрий", avatar: "Д", avatarBg: "#2d5a7b", time: "Сегодня в 09:40", text: "Будет ли отдельный блок по оптимизации токенов при работе swarm-агентов?" }
+            ]
+          },
+          {
+            title: "Встреча клуба в Zoom: Сессия ответов на вопросы участников",
+            author: "Михаил",
+            role: "Куратор",
+            avatar: "М",
+            avatarBg: "#a8402c",
+            date: "14 ноября 2026 г.",
+            views: 820,
+            replies: 34,
+            isVideo: false,
+            contentHtml: `
+              <p>Привет, клуб! В это воскресенье в <strong>17:00 МСК</strong> собираемся на регулярную сессию ответов на вопросы в Zoom.</p>
+
+              <h3>Повестка сессии:</h3>
+              <ol>
+                <li>Разбор затыков по установке OpenClaw и настройке локальных моделей.</li>
+                <li>Решение проблем с правами доступа и привязкой аккаунтов школы GetCourse.</li>
+                <li>Промпт-инжиниринг: как писать системные промпты, которые не ломаются при обновлениях модели.</li>
+              </ol>
+
+              <p>Ссылка на комнату Zoom появится здесь за 15 минут до начала. Готовьте ваши кейсы и экраны к демонстрации!</p>
+            `,
+            repliesList: [
+              { author: "Алексей", avatar: "А", avatarBg: "#3f6b4a", time: "3 дня назад", text: "Очень жду, как раз накопились вопросы по связке Claude Code и локального репозитория." },
+              { author: "Михаил (Куратор)", avatar: "М", avatarBg: "#a8402c", time: "3 дня назад", text: "Алексей, разберем первым делом, включим демонстрацию твоего экрана." }
+            ]
+          }
         ]
       },
       resources: {
         title: "💡 Полезняки",
         desc: "Промпты, шаблоны, инструкции и проверенные инструменты участников.",
         topics: [
-          { title: "Пак проверенных системных промптов для Claude 3.5 Sonnet", author: "Никита", date: "15 ноября", views: 1280, replies: 42 },
-          { title: "Скрипты автоматизации с Autopilot 2.0 и REA", author: "Иван (sanohes)", date: "12 ноября", views: 940, replies: 19 },
-          { title: "Шпаргалка по реверс-инжинирингу веб-приложений", author: "Михаил", date: "10 ноября", views: 1540, replies: 56 }
+          {
+            title: "Пак проверенных системных промптов для Claude 3.5 Sonnet",
+            author: "Никита",
+            role: "Основатель",
+            avatar: "Н",
+            avatarBg: "#183f37",
+            date: "15 ноября 2026 г.",
+            views: 1280,
+            replies: 42,
+            isVideo: false,
+            contentHtml: `
+              <p>Собрал и протестировал пак рабочих системных промптов для Claude 3.5 Sonnet, которые используем в повседневной разработке и реверс-инжиниринге веб-сервисов.</p>
+
+              <h3>1. Промпт Senior Архитектора и Реверс-инженера</h3>
+              <p>Заставляет модель анализировать структуру бандлов, выявлять скрытые API и формировать строгую спецификацию без домыслов:</p>
+              <pre><code>&lt;role&gt;
+Ты — ведущий инженер-архитектор и специалист по реверс-инжинирингу веб-приложений.
+Твоя цель: анализировать реальные сетевые вызовы (HAR/fetch), структуру Ember/React бандлов
+и формировать исчерпывающую техническую спецификацию (spec.md) с контрактами данных.
+&lt;/role&gt;
+&lt;guidelines&gt;
+- Никогда не придумывай отсутствующие эндпоинты: опирайся строго на evidence (логи, DOM, скрипты).
+- При обнаружении круговых структур в объектах используй безопасную сериализацию.
+- Фиксируй визуальные токены дизайна: шрифты, палитру CSS, отступы и радиусы скруглений.
+&lt;/guidelines&gt;</code></pre>
+
+              <h3>2. Промпт Автопилота разработки (Autopilot Execution)</h3>
+              <p>Обеспечивает пошаговое выполнение задач тикет за тикетом со строгим контролем качества:</p>
+              <pre><code>&lt;mode&gt;
+Режим пошаговой реализации: перед внесением изменений формулируй атомарный план.
+Каждое изменение сопровождается мгновенной проверкой работоспособности.
+Если тесты не проходят — останавливайся и проводи разбор причин до получения чистого билда.
+&lt;/mode&gt;</code></pre>
+
+              <h3>3. Промпт Тестировщика интерфейсов (UI Acceptance)</h3>
+              <p>Используется субагентом для проверки интерактивности: клики, переход по URL, воспроизведение видео и чтение файлов.</p>
+            `,
+            repliesList: [
+              { author: "Дмитрий", avatar: "Д", avatarBg: "#2d5a7b", time: "15 ноября", text: "Промпт архитектора спас 4 часа на анализе легаси-репозитория! Однозначно в закладки." },
+              { author: "sanohes (Иван)", avatar: "S", avatarBg: "#a88e4f", time: "15 ноября", text: "Использую эти промпты вместе с Autopilot 2.0 — сборка клона клуба прошла идеально." },
+              { author: "Михаил (Куратор)", avatar: "М", avatarBg: "#a8402c", time: "16 ноября", text: "Обновил шпаргалку на основе этих инструкций, смотрите соседний топик." }
+            ]
+          },
+          {
+            title: "Скрипты автоматизации с Autopilot 2.0 и REA",
+            author: "Иван (sanohes)",
+            role: "Участник клуба",
+            avatar: "S",
+            avatarBg: "#a88e4f",
+            date: "12 ноября 2026 г.",
+            views: 940,
+            replies: 19,
+            isVideo: false,
+            contentHtml: `
+              <p>Привет, клуб! Делюсь авторской методикой автоматизации разработки и реверс-инжиниринга веб-сервисов с помощью связки <strong>Autopilot 2.0</strong> и <strong>REA (Reverse Engineer Anything)</strong>.</p>
+
+              <h3>Жизненный цикл сборки проекта:</h3>
+              <ol>
+                <li><strong>Фиксация требований в <code>manifest.md</code>:</strong> описываем ключевые функциональные требования (R01–R11), стэк и критерии приёмки.</li>
+                <li><strong>Глубокий анализ донора через REA:</strong> подключаем Chrome DevTools, извлекаем компоненты Ember.js, структуру данных и стили.</li>
+                <li><strong>Пошаговая генерация тикетов:</strong> каждый компонент (плеер, читалка, чат, авторизация) реализуется изолированно.</li>
+                <li><strong>Слепая приёмка (Blind Acceptance G4):</strong> независимый субагент тестирует клики, воспроизведение медиа и верстку.</li>
+              </ol>
+
+              <h3>Полезные CLI-команды:</h3>
+              <pre><code># Запуск проверки статуса и тестов
+python3 .agents/skills/autopilot/tools/ap.py status
+python3 .agents/skills/autopilot/tools/ap.py test
+
+# Анализ через инструменты REA
+npx rea-agents --inspect-bundle</code></pre>
+            `,
+            repliesList: [
+              { author: "Никита", avatar: "Н", avatarBg: "#183f37", time: "12 ноября", text: "Отличный материал, Иван! Включили в официальную подборку лучших практик клуба." },
+              { author: "Сергей", avatar: "С", avatarBg: "#a8402c", time: "13 ноября", text: "Очень круто расписана blind acceptance, беру себе на вооружение." }
+            ]
+          },
+          {
+            title: "Шпаргалка по реверс-инжинирингу веб-приложений",
+            author: "Михаил",
+            role: "Куратор",
+            avatar: "М",
+            avatarBg: "#a8402c",
+            date: "10 ноября 2026 г.",
+            views: 1540,
+            replies: 56,
+            isVideo: false,
+            contentHtml: `
+              <p>Компактная шпаргалка по деконструкции современных веб-приложений на базе Ember, React, Vue и Next.js:</p>
+
+              <h3>Ключевые шаги:</h3>
+              <ul>
+                <li><strong>Сетевой слой (Network):</strong> поиск эндпоинтов JSON, websocket-соединений и MessageBus.</li>
+                <li><strong>Стейт приложения:</strong> проверка глобальных объектов в консоли (<code>window.Discourse</code>, <code>window.__INITIAL_STATE__</code>).</li>
+                <li><strong>Шрифты и токены:</strong> инспекция CSS Custom Properties в <code>:root</code>.</li>
+              </ul>
+            `,
+            repliesList: [
+              { author: "Анна", avatar: "А", avatarBg: "#6b3f5b", time: "11 ноября", text: "Спасибо за шпаргалку! Все по делу." }
+            ]
+          }
         ]
       },
       summaries: {
         title: "📝 Саммари чатов",
         desc: "Выжимки и ключевые инсайты из тематических чатов сообщества.",
         topics: [
-          { title: "Саммари за неделю: 10 лучших инструментов недели из чата #нейросети", author: "Куратор", date: "16 ноября", views: 670, replies: 12 },
-          { title: "Дайджест обсуждений: Как настраивать MCP серверы", author: "Куратор", date: "9 ноября", views: 890, replies: 15 }
+          {
+            title: "Саммари за неделю: 10 лучших инструментов недели из чата #нейросети",
+            author: "Куратор",
+            role: "Куратор",
+            avatar: "К",
+            avatarBg: "#2d5a7b",
+            date: "16 ноября 2026 г.",
+            views: 670,
+            replies: 12,
+            isVideo: false,
+            contentHtml: `
+              <p>Главные находки недели из клубных обсуждений:</p>
+              <ol>
+                <li><strong>OpenClaw:</strong> локальный агент для автоматизации рутины и работы с файловой системой.</li>
+                <li><strong>Chrome DevTools MCP:</strong> официальный сервер для управления браузером и сбора данных.</li>
+                <li><strong>KaTeX:</strong> быстрый рендеринг формул и разметки в веб-приложениях.</li>
+                <li><strong>Discourse Chat 2026:</strong> встроенный чат реального времени без сторонних виджетов.</li>
+              </ol>
+            `,
+            repliesList: [
+              { author: "Иван (sanohes)", avatar: "S", avatarBg: "#a88e4f", time: "16 ноября", text: "OpenClaw отлично дополняет Claude, подтверждаю." }
+            ]
+          },
+          {
+            title: "Дайджест обсуждений: Как настраивать MCP серверы",
+            author: "Куратор",
+            role: "Куратор",
+            avatar: "К",
+            avatarBg: "#2d5a7b",
+            date: "9 ноября 2026 г.",
+            views: 890,
+            replies: 15,
+            isVideo: false,
+            contentHtml: `
+              <p>Подробный разбор частых ошибок при конфигурации серверов Model Context Protocol (MCP): переменные окружения, работа с портами и права доступа к файлам.</p>
+            `,
+            repliesList: [
+              { author: "Павел", avatar: "П", avatarBg: "#3f6b4a", time: "10 ноября", text: "После дайджеста наконец настроил локальный сервер без ошибок прав!" }
+            ]
+          }
         ]
       },
       recordings: {
         title: "🎥 Записи эфиров",
         desc: "Архив прошедших вебинаров, воркшопов и разборов для участников клуба.",
         topics: [
-          { title: "Один фокус — целый год (Запись эфира 7 ноября)", author: "Никита", date: "7 ноября", views: 2310, replies: 88, isVideo: true },
-          { title: "Воркшоп: Сборка приложений кодом без разработчиков", author: "Никита", date: "31 октября", views: 1980, replies: 64, isVideo: true },
-          { title: "Разбор архитектуры REA и рентген чужих сервисов", author: "Никита", date: "24 октября", views: 1750, replies: 51, isVideo: true }
+          {
+            title: "Один фокус — целый год (Запись эфира 7 ноября)",
+            author: "Никита",
+            role: "Основатель",
+            avatar: "Н",
+            avatarBg: "#183f37",
+            date: "7 ноября 2026 г.",
+            views: 2310,
+            replies: 88,
+            isVideo: true,
+            contentHtml: `
+              <p>Полная видеозапись эфира от 7 ноября: стратегия удержания фокуса на одном ключевом продукте в течение года, методология декомпозиции и автоматизации.</p>
+              
+              <h3>Материалы эфира:</h3>
+              <p>К записи прикреплена методичка в формате PDF (доступна в основном выпуске журнала) и интерактивная стенограмма с таймкодами.</p>
+            `,
+            repliesList: [
+              { author: "Михаил (Куратор)", avatar: "М", avatarBg: "#a8402c", time: "8 ноября", text: "Стенограмма синхронизирована с видеоплеером, таймкоды кликабельны." },
+              { author: "sanohes (Иван)", avatar: "S", avatarBg: "#a88e4f", time: "8 ноября", text: "Пересмотрел эфир на одном дыхании, отличный материал!" }
+            ]
+          },
+          {
+            title: "Воркшоп: Сборка приложений кодом без разработчиков",
+            author: "Никита",
+            role: "Основатель",
+            avatar: "Н",
+            avatarBg: "#183f37",
+            date: "31 октября 2026 г.",
+            views: 1980,
+            replies: 64,
+            isVideo: true,
+            contentHtml: `
+              <p>Практический двухчасовой воркшоп: от идеи и дизайн-макета до работающего сервиса с базой данных и деплоем на собственный домен.</p>
+            `,
+            repliesList: [
+              { author: "Артем", avatar: "А", avatarBg: "#2d5a7b", time: "1 ноября", text: "Запустил свой первый пет-проект по этой схеме за выходные!" }
+            ]
+          },
+          {
+            title: "Разбор архитектуры REA и рентген чужих сервисов",
+            author: "Никита",
+            role: "Основатель",
+            avatar: "Н",
+            avatarBg: "#183f37",
+            date: "24 октября 2026 г.",
+            views: 1750,
+            replies: 51,
+            isVideo: true,
+            contentHtml: `
+              <p>Углубленный технический эфир по декомпозиции чужих SaaS-решений, исследованию недокументированных API и созданию защищенных архитектур.</p>
+            `,
+            repliesList: [
+              { author: "Константин", avatar: "К", avatarBg: "#3f6b4a", time: "25 октября", text: "Очень мощная подача материала. Ждем продолжения!" }
+            ]
+          }
         ]
       }
     };
 
-    // Состояние подписки
+    // Текущее состояние
+    let currentCategoryKey = 'journal';
+    let currentTopicIndex = -1;
     let isSubscribed = localStorage.getItem('iiclub_subscribed') === 'true';
     const video = document.getElementById('clubVideo');
     const timeDisplay = document.getElementById('videoTimeStatus');
@@ -1099,7 +1601,7 @@
         const curS = String(cur % 60).padStart(2, '0');
         const durM = String(Math.floor(dur / 60)).padStart(2, '0');
         const durS = String(dur % 60).padStart(2, '0');
-        timeDisplay.textContent = `⏱ ${curM}:${curS} / ${durM}:${durS}`;
+        if (timeDisplay) timeDisplay.textContent = `⏱ ${curM}:${curS} / ${durM}:${durS}`;
       });
     }
 
@@ -1109,7 +1611,7 @@
       localStorage.setItem('iiclub_user', 'sanohes@gmail.com');
       updateSubscriptionUI();
       closeLoginModal();
-      alert('Успешно! Вы вошли как sanohes@gmail.com. Действующая подписка клуба активирована. Все закрытые разделы и видео доступны!');
+      showToast('Вы вошли как sanohes@gmail.com. Действующая подписка клуба активирована!', 'success');
     }
 
     function updateSubscriptionUI() {
@@ -1123,30 +1625,38 @@
       const locks = ['announcements', 'resources', 'summaries', 'recordings'];
 
       if (isSubscribed) {
-        banner.classList.add('club-active');
-        header.textContent = '✅ Подписка Саночес активна (sanohes@gmail.com)';
-        sub.textContent = 'Участник клуба: полный доступ к закрытым эфирам, полезнякам, саммари и чатам открыт до 17 декабря 2026.';
-        actionBtn.textContent = '✅ Доступ активен';
-        actionBtn.className = 'btn btn-success btn-sm';
-        actionBtn.onclick = () => alert('Ваша подписка активна! Вы можете открывать любые разделы в левом меню.');
-        authBtn.textContent = 'Выйти';
-        authBtn.onclick = logoutUser;
-        userNameLabel.textContent = 'sanohes@gmail.com (Клуб)';
+        if (banner) {
+          banner.classList.add('club-active');
+          header.textContent = '✅ Подписка Саночес активна (sanohes@gmail.com)';
+          sub.textContent = 'Участник клуба: полный доступ к закрытым эфирам, полезнякам, саммари и чатам открыт до 17 декабря 2026.';
+          actionBtn.textContent = '✅ Доступ активен';
+          actionBtn.className = 'btn btn-success btn-sm';
+          actionBtn.onclick = () => showToast('Ваша подписка активна! Все разделы и материалы открыты.', 'success');
+        }
+        if (authBtn) {
+          authBtn.textContent = 'Выйти';
+          authBtn.onclick = logoutUser;
+        }
+        if (userNameLabel) userNameLabel.textContent = 'sanohes@gmail.com (Клуб)';
 
         locks.forEach(id => {
           const el = document.getElementById('lock-' + id);
           if (el) el.textContent = '🔓';
         });
       } else {
-        banner.classList.remove('club-active');
-        header.textContent = 'Статус: Саночес (sanohes@gmail.com)';
-        sub.textContent = 'Нажмите «Активировать доступ», чтобы открыть все закрытые разделы клуба.';
-        actionBtn.textContent = '🔑 Активировать доступ Саночес';
-        actionBtn.className = 'btn btn-primary';
-        actionBtn.onclick = oneClickSanohesLogin;
-        authBtn.textContent = 'Войти';
-        authBtn.onclick = openLoginModal;
-        userNameLabel.textContent = 'sanohes@gmail.com';
+        if (banner) {
+          banner.classList.remove('club-active');
+          header.textContent = 'Статус: Саночес (sanohes@gmail.com)';
+          sub.textContent = 'Нажмите «Активировать доступ», чтобы открыть все закрытые разделы клуба.';
+          actionBtn.textContent = '🔑 Активировать доступ Саночес';
+          actionBtn.className = 'btn btn-primary';
+          actionBtn.onclick = oneClickSanohesLogin;
+        }
+        if (authBtn) {
+          authBtn.textContent = 'Войти';
+          authBtn.onclick = openLoginModal;
+        }
+        if (userNameLabel) userNameLabel.textContent = 'sanohes@gmail.com';
 
         locks.forEach(id => {
           const el = document.getElementById('lock-' + id);
@@ -1160,7 +1670,7 @@
       localStorage.removeItem('iiclub_subscribed');
       updateSubscriptionUI();
       switchCategory('journal');
-      alert('Вы вышли из учетной записи.');
+      showToast('Вы вышли из учетной записи.', 'info');
     }
 
     // Переключение разделов форума
@@ -1173,8 +1683,10 @@
       document.getElementById('tabChat').classList.remove('active');
 
       if (catKey === 'journal') {
+        currentCategoryKey = 'journal';
         document.getElementById('viewArticle').style.display = 'block';
         document.getElementById('viewCategoryFeed').style.display = 'none';
+        document.getElementById('viewTopicDetail').style.display = 'none';
         document.getElementById('viewChat').style.display = 'none';
         return;
       }
@@ -1186,16 +1698,18 @@
 
       // Проверка доступа
       if (!isSubscribed) {
-        alert('Этот раздел («' + catKey + '») доступен только подтвержденным участникам клуба. Нажмите «Активировать доступ Саночес»!');
+        showToast('Раздел «' + (categoryData[catKey]?.title || catKey) + '» доступен участникам с подтвержденной подпиской.', 'error');
         openLoginModal();
         return;
       }
 
-      // Отображение закрытого раздела
+      // Отображение списка тем закрытого раздела
       const cat = categoryData[catKey];
       if (!cat) return;
 
+      currentCategoryKey = catKey;
       document.getElementById('viewArticle').style.display = 'none';
+      document.getElementById('viewTopicDetail').style.display = 'none';
       document.getElementById('viewChat').style.display = 'none';
       document.getElementById('viewCategoryFeed').style.display = 'block';
 
@@ -1204,7 +1718,7 @@
 
       const list = document.getElementById('categoryTopicsList');
       list.innerHTML = '';
-      cat.topics.forEach(t => {
+      cat.topics.forEach((t, idx) => {
         const li = document.createElement('li');
         li.className = 'topic-row';
         li.innerHTML = `
@@ -1219,17 +1733,149 @@
             👁 ${t.views} · 💬 ${t.replies}
           </div>
         `;
-        li.onclick = () => {
-          switchCategory('journal');
-          alert('Открыта тема: ' + t.title);
-        };
+        li.onclick = () => openTopicDetail(catKey, idx);
         list.appendChild(li);
       });
     }
 
+    // Открытие полной статьи топика (Topic Detail View)
+    function openTopicDetail(catKey, topicIndex) {
+      const cat = categoryData[catKey];
+      if (!cat) return;
+      const topic = cat.topics[topicIndex];
+      if (!topic) return;
+
+      currentCategoryKey = catKey;
+      currentTopicIndex = topicIndex;
+
+      document.getElementById('viewArticle').style.display = 'none';
+      document.getElementById('viewCategoryFeed').style.display = 'none';
+      document.getElementById('viewChat').style.display = 'none';
+      document.getElementById('viewTopicDetail').style.display = 'block';
+
+      // Хлебные крошки
+      document.getElementById('topicBreadcrumbCat').textContent = `← Назад в раздел ${cat.title}`;
+      document.getElementById('topicBreadcrumbTitle').textContent = topic.title;
+
+      // Автор
+      document.getElementById('topicAuthorName').textContent = topic.author;
+      document.getElementById('topicAuthorRole').textContent = topic.role || 'Участник клуба';
+      const av = document.getElementById('topicAuthorAvatar');
+      av.textContent = topic.avatar || topic.author[0];
+      if (topic.avatarBg) av.style.background = topic.avatarBg;
+
+      document.getElementById('topicDate').textContent = topic.date;
+      document.getElementById('topicDetailTitle').textContent = topic.title;
+
+      // Медиа блок темы (если это запись эфира)
+      const mediaBox = document.getElementById('topicMediaContainer');
+      if (topic.isVideo) {
+        mediaBox.style.display = 'block';
+        mediaBox.innerHTML = `
+          <div style="background: #111; border-radius: 8px; overflow: hidden; margin-bottom: 16px;">
+            <video controls preload="metadata" style="width: 100%; max-height: 480px; display: block;" poster="https://club.nikexpert.ru/forum/uploads/default/optimized/1X/c06fe2a7ebc3caa1c1761139f7942fae214a9cc3_2_666x1000.webp">
+              <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center; justify-content: space-between; background: #fbf9f4; border: 1px solid var(--border); padding: 10px 14px; border-radius: 6px;">
+            <span style="font-size: 0.85rem; font-weight: 600;">📺 Плеер записи эфира (HD 1080p)</span>
+            <button class="btn btn-outline btn-sm" onclick="showToast('☆ Закладка эфира сохранена в ваш профиль!', 'success')">☆ Закладка</button>
+          </div>
+        `;
+      } else {
+        mediaBox.style.display = 'none';
+        mediaBox.innerHTML = '';
+      }
+
+      // Текст статьи
+      document.getElementById('topicDetailBody').innerHTML = topic.contentHtml;
+
+      // Ответы
+      renderTopicReplies(topic.repliesList || []);
+
+      window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    function backToCategoryList() {
+      if (currentCategoryKey && currentCategoryKey !== 'journal') {
+        switchCategory(currentCategoryKey);
+      } else {
+        switchCategory('journal');
+      }
+    }
+
+    function renderTopicReplies(replies) {
+      const container = document.getElementById('topicRepliesList');
+      document.getElementById('topicRepliesCount').textContent = replies.length;
+      container.innerHTML = '';
+
+      if (replies.length === 0) {
+        container.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem;">Пока нет ответов. Будьте первым!</p>';
+        return;
+      }
+
+      replies.forEach(r => {
+        const item = document.createElement('div');
+        item.className = 'reply-card';
+        item.innerHTML = `
+          <div class="reply-avatar" style="background: ${r.avatarBg || '#183f37'};">${r.avatar}</div>
+          <div class="reply-content">
+            <div class="reply-header">
+              <span class="reply-author">${r.author}</span>
+              <span class="reply-time">${r.time}</span>
+            </div>
+            <div class="reply-text">${r.text}</div>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    function sendTopicReply() {
+      const input = document.getElementById('topicReplyInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const cat = categoryData[currentCategoryKey];
+      if (!cat) return;
+      const topic = cat.topics[currentTopicIndex];
+      if (!topic) return;
+
+      if (!topic.repliesList) topic.repliesList = [];
+      topic.repliesList.push({
+        author: "sanohes (Иван)",
+        avatar: "S",
+        avatarBg: "#a88e4f",
+        time: "только что",
+        text: text
+      });
+      topic.replies = topic.repliesList.length;
+
+      input.value = '';
+      renderTopicReplies(topic.repliesList);
+      showToast('Ваш ответ опубликован в теме!', 'success');
+
+      // Автоответ куратора
+      setTimeout(() => {
+        topic.repliesList.push({
+          author: "Михаил (Куратор)",
+          avatar: "М",
+          avatarBg: "#a8402c",
+          time: "только что",
+          text: "Спасибо за вопрос! Принято в работу, подробно разберем на ближайшей встрече."
+        });
+        topic.replies = topic.repliesList.length;
+        renderTopicReplies(topic.repliesList);
+      }, 1400);
+    }
+
+    function saveTopicBookmark() {
+      showToast('☆ Тема сохранена в ваши закладки профиля sanohes@gmail.com!', 'success');
+    }
+
     function openChatView() {
       if (!isSubscribed) {
-        alert('Чат клуба доступен участникам с подтвержденной подпиской. Активируйте доступ Саночес!');
+        showToast('Чат клуба доступен участникам с подтвержденной подпиской. Активируйте доступ Саночес!', 'error');
         openLoginModal();
         return;
       }
@@ -1238,6 +1884,7 @@
       document.getElementById('tabChat').classList.add('active');
 
       document.getElementById('viewArticle').style.display = 'none';
+      document.getElementById('viewTopicDetail').style.display = 'none';
       document.getElementById('viewCategoryFeed').style.display = 'none';
       document.getElementById('viewChat').style.display = 'block';
     }
@@ -1253,28 +1900,31 @@
     }
 
     function scrollToPlayer() {
-      document.getElementById('playerAnchor').scrollIntoView({ behavior: 'smooth' });
+      const el = document.getElementById('playerAnchor');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
 
     function scrollToReader() {
-      document.getElementById('readerAnchor').scrollIntoView({ behavior: 'smooth' });
+      const el = document.getElementById('readerAnchor');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
 
     function togglePdfFrame() {
       const frame = document.getElementById('pdfFrame');
-      frame.classList.toggle('open');
+      if (frame) frame.classList.toggle('open');
     }
 
     function saveBookmarkFromVideo() {
       const cur = Math.floor(video.currentTime || 4);
       const m = String(Math.floor(cur / 60)).padStart(2, '0');
       const s = String(cur % 60).padStart(2, '0');
-      alert(`☆ Закладка на отметке ${m}:${s} успешно сохранена в профиль sanohes@gmail.com!`);
+      showToast(`☆ Закладка на отметке ${m}:${s} сохранена в профиль sanohes@gmail.com!`, 'success');
     }
 
     function toggleReaction(btn) {
       btn.classList.toggle('user-reacted');
-      const countEl = btn.querySelector('.count');
+      const countEl = btn.querySelector('.react-count, .count');
+      if (!countEl) return;
       let val = parseInt(countEl.textContent, 10);
       val = btn.classList.contains('user-reacted') ? val + 1 : val - 1;
       countEl.textContent = val;
@@ -1351,5 +2001,7 @@
       document.getElementById('chatTextInput').placeholder = `Написать в #${name}... (Enter для отправки)`;
     }
   </script>
+  <!-- Всплывающие уведомления (Toast) -->
+  <div id="toastContainer" class="toast-container"></div>
 </body>
 </html>
