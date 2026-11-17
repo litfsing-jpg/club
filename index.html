@@ -19,6 +19,7 @@
       --tertiary-light: #e6eee9;
       --quaternary: #0f2a24;
       --highlight: #eddcae;                /* Песочно-золотистый */
+      --highlight-bg: #fcf9f2;
       --border: #ebe9e6;                   /* Мягкая граница */
       --card-bg: #ffffff;
       --text: #23201b;
@@ -37,7 +38,7 @@
       font-feature-settings: "calt" 0;
       background: var(--secondary);
       color: var(--primary);
-      line-height: 1.55;
+      line-height: 1.6;
       letter-spacing: -0.011em;
       min-height: 100vh;
       display: flex;
@@ -234,6 +235,184 @@
       gap: 10px;
     }
 
+    /* Авторский блок Discourse поста */
+    .post-author-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .author-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .author-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #183f37;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .author-name {
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .author-role {
+      font-size: 0.72rem;
+      background: #e6eee9;
+      color: var(--tertiary);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .post-date {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .post-stats {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 12px;
+    }
+
+    /* Типографика статьи */
+    .article-body {
+      font-size: 1.02rem;
+      line-height: 1.75;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+    .article-body p { margin-bottom: 16px; }
+    .article-quote {
+      border-left: 3px solid var(--tertiary);
+      background: #fbf9f4;
+      padding: 12px 18px;
+      margin: 16px 0;
+      border-radius: 0 6px 6px 0;
+      font-style: italic;
+      color: #3e382f;
+    }
+    .article-checklist {
+      list-style: none;
+      margin: 14px 0 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .article-checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .check-icon {
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    /* Блок вложений материалов (PDF и раздатки) */
+    .attachment-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      background: #fdfcf9;
+      margin: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .attachment-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .attachment-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      background: #fee2e2;
+      color: var(--danger);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    .attachment-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--primary);
+    }
+    .attachment-size {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Встроенный PDF просмотрщик */
+    .pdf-viewer-box {
+      display: none;
+      margin-top: 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      height: 480px;
+      background: #fff;
+    }
+    .pdf-viewer-box.open { display: block; }
+    .pdf-viewer-box iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Реакции под статьей (Discourse Reactions) */
+    .post-actions-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      margin-top: 24px;
+    }
+    .reactions-cluster {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .post-reaction-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      font-size: 0.85rem;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s;
+    }
+    .post-reaction-btn:hover {
+      background: #f4f1ea;
+      transform: translateY(-1px);
+    }
+    .post-reaction-btn.user-reacted {
+      background: #e6eee9;
+      border-color: var(--tertiary);
+    }
+
     /* Пейволл баннер */
     .paywall-alert {
       background: #fbf6ec;
@@ -292,7 +471,7 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 20px;
-      max-height: 380px;
+      max-height: 340px;
       overflow-y: auto;
       font-size: 0.95rem;
       line-height: 1.7;
@@ -551,22 +730,55 @@
         </button>
       </div>
 
-      <!-- Вкладка 1: Журнал и видеоматериал -->
+      <!-- Вкладка 1: Журнал и статья с видео и PDF -->
       <div id="viewFeed">
         
-        <!-- Карточка видеоплеера -->
-        <section class="card" id="playerSection">
-          <div class="card-header">
-            <h2 class="card-title">
-              <span>🎥</span> Альманах обновлений №008: «Работа помещается рядом»
-            </h2>
-            <button class="btn btn-outline btn-sm" onclick="resumeVideoFromStart()">
-              ▶️ Начать с 00:04
-            </button>
+        <!-- Оформленная статья (Discourse Topic Post) -->
+        <article class="card" id="articleCard">
+          
+          <!-- Авторский блок поста -->
+          <div class="post-author-bar">
+            <div class="author-info">
+              <div class="author-avatar">Н</div>
+              <div>
+                <div class="author-name">
+                  <span>Никита</span>
+                  <span class="author-role">Основатель</span>
+                </div>
+                <div class="post-date">17 ноября 2026 г. · в разделе <strong>Журнал</strong></div>
+              </div>
+            </div>
+            <div class="post-stats">
+              <span>👁 1,420 просмотров</span>
+              <span>💬 28 ответов</span>
+            </div>
+          </div>
+
+          <!-- Заголовок темы -->
+          <h1 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 16px;">
+            Альманах обновлений №008. Работа помещается рядом
+          </h1>
+
+          <!-- Тело статьи -->
+          <div class="article-body">
+            <p>
+              Выпустили свежий восьмой номер Альманаха! В этом выпуске подробно разбираем, как изменился подход к разработке с приходом нового поколения агентов и методологии <strong>Autopilot 2.0</strong>.
+            </p>
+
+            <div class="article-quote">
+              «Обычная разработка идёт от идеи к коду. Реверс-инжиниринг идёт в обратную сторону: вы разбираете готовую программу без исходников до винтика, чтобы сделать такое же решение на чистой архитектуре.»
+            </div>
+
+            <p>Ключевые темы номера:</p>
+            <ul class="article-checklist">
+              <li><span class="check-icon">✓</span> <strong>Глубинный реверс-инжиниринг с REA:</strong> как заглядывать внутрь веб-бандлов, анализировать API и снимать рантайм-доказательства.</li>
+              <li><span class="check-icon">✓</span> <strong>Двухуровневые закладки:</strong> сохранение точных пиксельных смещений параграфов и синхронизация между устройствами.</li>
+              <li><span class="check-icon">✓</span> <strong>Медиаплеер с памятью таймкода:</strong> возобновление просмотра с секунды остановки и полка «Я смотрю и слушаю».</li>
+            </ul>
           </div>
 
           <!-- Настоящий рабочий HTML5 видеоплеер -->
-          <div class="video-container">
+          <div class="video-container" id="playerSection">
             <video id="mainVideo" controls poster="docs/screenshots/journal_topic.png">
               <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
               Ваш браузер не поддерживает HTML5 видео.
@@ -577,51 +789,87 @@
                 <span class="resume-badge" onclick="resumeVideoFromStart()">
                   Продолжить с 00:04
                 </span>
-                <span style="font-size: 0.8rem; color: #999;">Источник: Яндекс.Диск / MP4 HD</span>
+                <span style="font-size: 0.8rem; color: #999;">Яндекс.Диск / MP4 HD</span>
               </div>
             </div>
           </div>
-        </section>
 
-        <!-- Карточка расшифровки и закладок -->
-        <section class="card" id="readerSection">
-          <div class="card-header">
-            <h2 class="card-title">
-              <span>📝</span> Расшифровка эфира и микрозакладки
-            </h2>
+          <!-- Блок прикрепленного PDF файла (Раздатка и методичка) -->
+          <div class="attachment-card">
+            <div class="attachment-meta">
+              <div class="attachment-icon">PDF</div>
+              <div>
+                <div class="attachment-title">Альманах обновлений №008 — Методичка по агентам.pdf</div>
+                <div class="attachment-size">1.0 КБ · Официальный раздаточный материал выпуска</div>
+              </div>
+            </div>
             <div style="display: flex; gap: 8px;">
-              <button class="btn btn-outline btn-sm" onclick="addCustomBookmark()">
-                ☆ Добавить закладку
+              <button class="btn btn-outline btn-sm" onclick="togglePdfViewer()">
+                📖 Читать здесь
               </button>
-              <span class="btn btn-outline btn-sm" id="progressPercentage">
-                14% прочитано
-              </span>
+              <a href="assets/materials/almanac-008-methodology.pdf" download class="btn btn-primary btn-sm">
+                ⬇️ Скачать PDF
+              </a>
             </div>
           </div>
 
-          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
-            💡 Нажмите на любой таймкод в тексте, чтобы перемотать видео на этот момент.
-          </p>
+          <!-- Встроенный интерактивный PDF просмотрщик -->
+          <div class="pdf-viewer-box" id="pdfViewerContainer">
+            <iframe src="assets/materials/almanac-008-methodology.pdf"></iframe>
+          </div>
 
-          <div class="transcript-box" id="transcriptContainer">
-            <div class="transcript-entry active-cue" onclick="seekToSeconds(4, this)">
-              <span class="cue-time">[00:00:04]</span>
-              <strong>Никита Вельмакин:</strong> Привет всем участникам клуба! Сегодня мы подробно разбираем, как упаковывать сложные инструменты в простые решения и как автономные агенты меняют разработку.
+          <!-- Транскрипт с кликабельными таймкодами -->
+          <div style="margin-top: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <h3 style="font-size: 1.05rem; font-weight: 700;">Стенограмма и таймкоды выпуска:</h3>
+              <button class="btn btn-outline btn-sm" onclick="addCustomBookmark()">
+                ☆ Закладка текущей секунды
+              </button>
             </div>
-            <div class="transcript-entry" onclick="seekToSeconds(18, this)">
-              <span class="cue-time">[00:00:18]</span>
-              <strong>Никита Вельмакин:</strong> Обратите внимание на материалы: к выпуску прикреплена текстовая методичка и полный альманах в формате Markdown и EPUB.
-            </div>
-            <div class="transcript-entry" onclick="seekToSeconds(45, this)">
-              <span class="cue-time">[00:00:45]</span>
-              <strong>Разбор темы:</strong> Читалка запоминает координаты каждого блока, чтобы при возвращении не приходилось заново листать весь текст.
-            </div>
-            <div class="transcript-entry" onclick="seekToSeconds(90, this)">
-              <span class="cue-time">[00:01:30]</span>
-              <strong>Закладки:</strong> Координаты закладок синхронизируются локально и на сервере, отображаясь на полке «Я читаю».
+            <div class="transcript-box" id="transcriptContainer">
+              <div class="transcript-entry active-cue" onclick="seekToSeconds(4, this)">
+                <span class="cue-time">[00:00:04]</span>
+                <strong>Никита Вельмакин:</strong> Привет всем участникам клуба! Сегодня мы подробно разбираем, как упаковывать сложные инструменты в простые решения и как автономные агенты меняют разработку.
+              </div>
+              <div class="transcript-entry" onclick="seekToSeconds(18, this)">
+                <span class="cue-time">[00:00:18]</span>
+                <strong>Никита Вельмакин:</strong> Обратите внимание на материалы: к выпуску прикреплена текстовая методичка в PDF и полный альманах в формате Markdown и EPUB.
+              </div>
+              <div class="transcript-entry" onclick="seekToSeconds(45, this)">
+                <span class="cue-time">[00:00:45]</span>
+                <strong>Разбор темы:</strong> Читалка запоминает координаты каждого блока, чтобы при возвращении не приходилось заново листать весь текст.
+              </div>
+              <div class="transcript-entry" onclick="seekToSeconds(90, this)">
+                <span class="cue-time">[00:01:30]</span>
+                <strong>Закладки:</strong> Координаты закладок синхронизируются локально и на сервере, отображаясь на полке «Я читаю».
+              </div>
             </div>
           </div>
-        </section>
+
+          <!-- Плашка реакций под статьей (Discourse Reactions) -->
+          <div class="post-actions-bar">
+            <div class="reactions-cluster">
+              <button class="post-reaction-btn" onclick="toggleReaction(this)">
+                <span>❤️</span> <span class="count">24</span>
+              </button>
+              <button class="post-reaction-btn" onclick="toggleReaction(this)">
+                <span>🔥</span> <span class="count">42</span>
+              </button>
+              <button class="post-reaction-btn" onclick="toggleReaction(this)">
+                <span>🚀</span> <span class="count">19</span>
+              </button>
+              <button class="post-reaction-btn" onclick="toggleReaction(this)">
+                <span>💡</span> <span class="count">15</span>
+              </button>
+            </div>
+            <div>
+              <button class="btn btn-outline btn-sm" onclick="addCustomBookmark()">
+                ☆ В закладки
+              </button>
+            </div>
+          </div>
+
+        </article>
 
       </div>
 
@@ -657,7 +905,7 @@
                       <span class="msg-time">10:14</span>
                     </div>
                     <div class="msg-text">
-                      Выложили новый Альманах №008! Проверяйте видеоплеер и читалку конспекта прямо в теме.
+                      Выложили новый Альманах №008! Проверяйте видеоплеер, PDF методичку и читалку прямо в теме.
                     </div>
                     <div class="msg-reactions">
                       <span class="react-pill" onclick="addReaction(this)">🔥 12</span>
@@ -675,7 +923,7 @@
                       <span class="msg-time">10:28</span>
                     </div>
                     <div class="msg-text">
-                      Кстати, таймкоды кликабельны — можно сразу прыгать на нужный фрагмент в плеере.
+                      Кстати, таймкоды кликабельны — можно сразу прыгать на нужный фрагмент в видео. И методичку можно прямо во встроенном окне читать!
                     </div>
                     <div class="msg-reactions">
                       <span class="react-pill" onclick="addReaction(this)">👍 4</span>
@@ -772,6 +1020,11 @@
       document.getElementById('readerSection').scrollIntoView({ behavior: 'smooth' });
     }
 
+    function togglePdfViewer() {
+      const box = document.getElementById('pdfViewerContainer');
+      box.classList.toggle('open');
+    }
+
     function switchMainTab(tab) {
       document.getElementById('tabFeed').classList.toggle('active', tab === 'feed');
       document.getElementById('tabChat').classList.toggle('active', tab === 'chat');
@@ -821,6 +1074,14 @@
       alert(`☆ Закладка сохранена на отметке ${m}:${s} и привязана к аккаунту QuietPanda64!`);
     }
 
+    function toggleReaction(btn) {
+      btn.classList.toggle('user-reacted');
+      const countEl = btn.querySelector('.count');
+      let val = parseInt(countEl.textContent, 10);
+      val = btn.classList.contains('user-reacted') ? val + 1 : val - 1;
+      countEl.textContent = val;
+    }
+
     // Чат
     function handleChatKey(e) {
       if (e.key === 'Enter') sendChatMessage();
@@ -850,6 +1111,27 @@
       feed.appendChild(item);
       input.value = '';
       feed.scrollTop = feed.scrollHeight;
+
+      // Автоответ куратора через 1.5 секунды
+      setTimeout(() => {
+        const replyItem = document.createElement('div');
+        replyItem.className = 'message-item';
+        replyItem.innerHTML = `
+          <div class="msg-avatar" style="background: #a8402c;">М</div>
+          <div class="msg-content">
+            <div class="msg-header">
+              <span class="msg-author">Михаил (Куратор)</span>
+              <span class="msg-time">только что</span>
+            </div>
+            <div class="msg-text">Принято в работу! Если возникнут вопросы по методичке или видео, пиши сюда в чат.</div>
+            <div class="msg-reactions">
+              <span class="react-pill" onclick="addReaction(this)">❤️ 1</span>
+            </div>
+          </div>
+        `;
+        feed.appendChild(replyItem);
+        feed.scrollTop = feed.scrollHeight;
+      }, 1500);
     }
 
     function addReaction(el) {
