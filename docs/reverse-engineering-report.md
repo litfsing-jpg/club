@@ -61,3 +61,4 @@
 
 - Главный экран форума: `docs/screenshots/main_page.png`
 - Личный кабинет проверки подписки: `docs/screenshots/club_account.png`
+
