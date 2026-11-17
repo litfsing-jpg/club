@@ -7,10 +7,10 @@
   <link rel="icon" href="https://club.nikexpert.ru/forum/uploads/default/optimized/1X/2cbafb1eeb8ec8095ee09273540ab221edaf9a51_2_32x32.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   
   <style>
-    /* Фирменная палитра ИИ Клуба (Discourse) */
+    /* Фирменная палитра и типографика ИИ Клуба (Discourse 2026) */
     :root {
       --primary: #23201b;                  /* Теплый графит */
       --secondary: #faf8f3;                /* Кремовая бумага */
@@ -27,7 +27,8 @@
       --success-bg: #e6f4ea;
       --danger: #a8402c;
       --danger-bg: #fdf2f0;
-      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-family: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-heading: 'Source Serif 4', Georgia, "Times New Roman", serif;
       --font-mono: 'JetBrains Mono', Consolas, Monaco, monospace;
     }
 
@@ -35,14 +36,146 @@
     
     body {
       font-family: var(--font-family);
+      font-size: 17px;
       font-feature-settings: "calt" 0;
       background: var(--secondary);
       color: var(--primary);
-      line-height: 1.6;
+      line-height: 1.65;
       letter-spacing: -0.011em;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+    }
+
+    h1, h2, h3, h4, .article-title, .topic-detail-title, .modal-title {
+      font-family: var(--font-heading);
+      font-weight: 500;
+      letter-spacing: -0.015em;
+      color: #1c1917;
+    }
+
+    pre, code, .prompt-box pre {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+    }
+
+    /* Режимы плеера: Видео / Аудио */
+    .club-video-mode-controls {
+      display: inline-flex;
+      background: #ebe9e6;
+      padding: 3px;
+      border-radius: 6px;
+      gap: 2px;
+      margin-bottom: 12px;
+    }
+    .club-video-mode-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.15s;
+      font-family: var(--font-family);
+    }
+    .club-video-mode-btn.active {
+      background: #ffffff;
+      color: var(--primary);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+    .audio-mode-card {
+      background: linear-gradient(135deg, #183f37 0%, #0f2a24 100%);
+      color: #fff;
+      border-radius: 8px;
+      padding: 36px 24px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .audio-wave-visualizer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      height: 48px;
+      margin: 16px 0;
+    }
+    .audio-bar {
+      width: 4px;
+      background: #eddcae;
+      border-radius: 2px;
+      animation: pulseBar 1.2s ease-in-out infinite;
+    }
+    .audio-bar:nth-child(2) { animation-delay: 0.2s; }
+    .audio-bar:nth-child(3) { animation-delay: 0.4s; }
+    .audio-bar:nth-child(4) { animation-delay: 0.1s; }
+    .audio-bar:nth-child(5) { animation-delay: 0.3s; }
+    @keyframes pulseBar {
+      0%, 100% { height: 10px; opacity: 0.4; }
+      50% { height: 42px; opacity: 1; }
+    }
+
+    /* Озвучка статьи / Аудиоплеер для текста */
+    .article-audio-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #f7f4ec;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--tertiary);
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin: 16px 0 20px 0;
+    }
+    .audio-play-btn {
+      background: var(--tertiary);
+      color: #fff;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: transform 0.15s, background 0.15s;
+    }
+    .audio-play-btn:hover {
+      background: var(--tertiary-hover);
+      transform: scale(1.05);
+    }
+    .audio-track-info {
+      flex: 1;
+    }
+    .audio-track-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .audio-track-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .audio-track-slider {
+      flex: 1;
+      height: 4px;
+      accent-color: var(--tertiary);
+      cursor: pointer;
+    }
+    .speed-tag {
+      font-size: 0.75rem;
+      background: #ebe9e6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
     }
 
     /* Верхняя панель Discourse */
@@ -887,8 +1020,18 @@
             </a>
           </li>
           <li>
+            <a href="javascript:void(0)" class="cat-link" id="cat-start" onclick="switchCategory('start')">
+              <span>🚀 Начни здесь</span> <span class="cat-locked" id="lock-start">🔒</span>
+            </a>
+          </li>
+          <li>
             <a href="javascript:void(0)" class="cat-link" id="cat-announcements" onclick="switchCategory('announcements')">
-              <span>📢 Анонсы</span> <span class="cat-locked" id="lock-announcements">🔒</span>
+              <span>📢 Новости и анонсы</span> <span class="cat-locked" id="lock-announcements">🔒</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" class="cat-link" id="cat-recordings" onclick="switchCategory('recordings')">
+              <span>🎥 Записи эфиров</span> <span class="cat-locked" id="lock-recordings">🔒</span>
             </a>
           </li>
           <li>
@@ -902,8 +1045,39 @@
             </a>
           </li>
           <li>
-            <a href="javascript:void(0)" class="cat-link" id="cat-recordings" onclick="switchCategory('recordings')">
-              <span>🎥 Записи эфиров</span> <span class="cat-locked" id="lock-recordings">🔒</span>
+            <a href="javascript:void(0)" class="cat-link" id="cat-vizitka" onclick="switchCategory('vizitka')">
+              <span>🪪 Визитка Первопроходца</span> <span class="cat-locked" id="lock-vizitka">🔒</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="sidebar-block">
+        <div class="sidebar-heading">Чат-каналы</div>
+        <ul class="cat-menu">
+          <li>
+            <a href="javascript:void(0)" class="cat-link" onclick="openChatChannel('general')">
+              <span># общий-чат</span> <span class="cat-pill" style="background:#e6eee9; color:#183f37;">активен</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" class="cat-link" onclick="openChatChannel('victories')">
+              <span># твои-победы</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" class="cat-link" onclick="openChatChannel('claude')">
+              <span># клод</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" class="cat-link" onclick="openChatChannel('hackathons')">
+              <span># хакатоны</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" class="cat-link" onclick="openChatChannel('flud')">
+              <span># флудилка</span>
             </a>
           </li>
         </ul>
@@ -913,8 +1087,8 @@
         <div class="sidebar-heading">Мои полки</div>
         <ul class="cat-menu">
           <li>
-            <a href="javascript:void(0)" class="cat-link" onclick="scrollToPlayer()">
-              <span>📺 Смотрю: 00:04</span>
+            <a href="javascript:void(0)" class="cat-link" id="cat-watching" onclick="openWatchingShelf()">
+              <span id="shelfWatchingLabel">📺 Смотрю: 0:39</span>
             </a>
           </li>
           <li>
@@ -970,6 +1144,23 @@
               Альманах обновлений №008. Работа помещается рядом
             </h1>
 
+            <!-- Блок озвучки статьи (Аудиоплеер / TTS) -->
+            <div class="article-audio-bar" id="articleAudioBar">
+              <button class="audio-play-btn" id="articleAudioBtn" onclick="toggleArticleAudio()" title="Слушать аудиоверсию">
+                <span id="audioPlayIcon">▶</span>
+              </button>
+              <div class="audio-track-info">
+                <div class="audio-track-title">
+                  <span>🎧 Аудиоверсия статьи (ИИ-озвучка)</span>
+                  <span id="audioTimer" style="font-size: 0.8rem; color: var(--text-muted); font-weight: normal; margin-left: auto;">0:00 / 2:40</span>
+                </div>
+                <div class="audio-track-controls">
+                  <input type="range" class="audio-track-slider" id="articleAudioSlider" min="0" max="160" value="0" oninput="seekArticleAudio(this.value)">
+                  <span class="speed-tag" id="audioSpeedBtn" onclick="cycleAudioSpeed()">1x</span>
+                </div>
+              </div>
+            </div>
+
             <div class="article-body">
               <p>
                 Выпустили свежий восьмой номер Альманаха! В этом выпуске подробно разбираем, как изменился подход к разработке с приходом нового поколения агентов и методологии <strong>Autopilot 2.0</strong>.
@@ -987,9 +1178,35 @@
               </ul>
             </div>
 
+            <!-- Режимы воспроизведения: Видео / Аудио -->
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 18px; margin-bottom: 8px;">
+              <div class="club-video-mode-controls" role="group" aria-label="Режим записи">
+                <button type="button" class="club-video-mode-btn active" id="btnModeVideo" onclick="setVideoMode('video')">Видео</button>
+                <button type="button" class="club-video-mode-btn" id="btnModeAudio" onclick="setVideoMode('audio')">Аудио</button>
+              </div>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">Смотрим в удобном темпе</span>
+            </div>
+
+            <!-- Карточка аудио-режима (когда режим Аудио активен) -->
+            <div id="audioModeCard" class="audio-mode-card" style="display: none;">
+              <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.8; margin-bottom: 4px;">Фоновое воспроизведение звука</div>
+              <h3 style="color: #fff; margin-bottom: 8px; font-size: 1.25rem;">2026-11-07 1544 Сообщество ИИ Первопроходцев (Аудио)</h3>
+              <p style="font-size: 0.875rem; opacity: 0.85; max-width: 500px; margin: 0 auto;">Видеоряд отключен для экономии мобильного трафика. Вы слушаете чистую аудиодорожку записи эфира.</p>
+              <div class="audio-wave-visualizer">
+                <div class="audio-bar"></div>
+                <div class="audio-bar"></div>
+                <div class="audio-bar"></div>
+                <div class="audio-bar"></div>
+                <div class="audio-bar"></div>
+              </div>
+              <div style="display: flex; justify-content: center; gap: 10px; margin-top: 12px;">
+                <button class="btn btn-outline btn-sm" onclick="setVideoMode('video')" style="background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3);">Вернуть видеоряд</button>
+              </div>
+            </div>
+
             <!-- Видеоплеер (Настоящее воспроизведение) -->
             <div class="video-wrapper" id="playerAnchor">
-              <video id="clubVideo" controls preload="metadata" playsinline>
+              <video id="clubVideo" controls preload="metadata" playsinline poster="https://club.nikexpert.ru/forum/uploads/default/optimized/1X/c06fe2a7ebc3caa1c1761139f7942fae214a9cc3_2_666x1000.webp">
                 <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
                 Ваш браузер не поддерживает встроенное видео.
               </video>
@@ -1120,6 +1337,23 @@
 
             <h1 class="article-title" id="topicDetailTitle" style="margin-top: 14px;"></h1>
 
+            <!-- Аудиоплеер / озвучка топика -->
+            <div class="article-audio-bar" id="topicAudioBar">
+              <button class="audio-play-btn" id="topicAudioBtn" onclick="toggleTopicAudio()" title="Слушать аудиоверсию">
+                <span id="topicAudioIcon">▶</span>
+              </button>
+              <div class="audio-track-info">
+                <div class="audio-track-title">
+                  <span>🎧 Аудиоверсия статьи (ИИ-озвучка)</span>
+                  <span id="topicAudioTimer" style="font-size: 0.8rem; color: var(--text-muted); font-weight: normal; margin-left: auto;">0:00 / 2:15</span>
+                </div>
+                <div class="audio-track-controls">
+                  <input type="range" class="audio-track-slider" id="topicAudioSlider" min="0" max="135" value="0" oninput="seekTopicAudio(this.value)">
+                  <span class="speed-tag" id="topicSpeedBtn" onclick="cycleTopicAudioSpeed()">1x</span>
+                </div>
+              </div>
+            </div>
+
             <!-- Медиа блок темы (если видео или методичка) -->
             <div id="topicMediaContainer" style="display: none; margin: 18px 0;"></div>
 
@@ -1235,6 +1469,24 @@
           </section>
         </div>
 
+        <!-- Экран 5: Личная полка «Я смотрю и слушаю» (/club/watching) -->
+        <div id="viewWatchingShelf" style="display: none;">
+          <div class="card" style="padding: 24px;">
+            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 4px;">ПЕРВОПРОХОДЦЫ / ЛИЧНАЯ ПОЛКА</div>
+            <h1 style="font-size: 1.8rem; margin-bottom: 6px;">Я смотрю и слушаю</h1>
+            <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;">Начатые эфиры и ваше место в каждом из них.</p>
+            
+            <div style="display: flex; gap: 16px; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 12px;">
+              <a href="javascript:void(0)" onclick="switchCategory('recordings')" style="font-size: 0.875rem; color: var(--tertiary); font-weight: 600; text-decoration: none;">Все записи эфиров →</a>
+              <a href="javascript:void(0)" onclick="scrollToReader()" style="font-size: 0.875rem; color: var(--text-muted); text-decoration: none;">Я читаю →</a>
+            </div>
+
+            <div id="watchingShelfList">
+              <!-- Заполняется динамически -->
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </main>
@@ -1294,15 +1546,93 @@
       }, 3500);
     }
 
-    // База данных категорий и полных статей/топиков
+    // База данных категорий и полных статей/топиков форума (Синхронизировано с club.nikexpert.ru)
     const categoryData = {
+      start: {
+        title: "🚀 Начни здесь",
+        desc: "Первые шаги в клубе: ориентация, регламент, инструменты и карта разделов.",
+        topics: [
+          {
+            title: "Добро пожаловать в ИИ Клуб Первопроходцев: ориентиры и правила",
+            author: "Никита Малов",
+            role: "Основатель",
+            avatar: "Н",
+            avatarBg: "#183f37",
+            date: "17 ноября 2026 г.",
+            views: 3120,
+            replies: 45,
+            isVideo: false,
+            contentHtml: `
+              <p>Первопроходцы, добро пожаловать в наше сообщество практиков ИИ! Мы собрались здесь, чтобы делать свои реальные проекты с помощью искусственного интеллекта и поддерживать друг друга на каждом этапе.</p>
+              
+              <h3>Главные принципы сообщества:</h3>
+              <ol>
+                <li><strong>Своя задача на целый год:</strong> выберите один ключевой фокус и доведите его до ощутимого результата.</li>
+                <li><strong>Практика превыше теории:</strong> мы не просто обсуждаем новости — мы тестируем инструменты в коде, собираем агентов и запускаем сервисы.</li>
+                <li><strong>Открытость и обмен опытом:</strong> задавайте любые вопросы в чатах, делитесь промптами в разделе «Полезняки» и приходите на еженедельные разборы.</li>
+              </ol>
+
+              <h3>Навигация по разделам:</h3>
+              <ul>
+                <li><strong>Журнал:</strong> регулярные альманахи с глубокими методическими статьями и PDF.</li>
+                <li><strong>Записи эфиров:</strong> видеозаписи всех воркшопов с переключателем «Видео/Аудио», таймкодами и полкой синхронизации.</li>
+                <li><strong>Полезняки:</strong> готовые системные промпты, шпаргалки и инструкции.</li>
+                <li><strong>Саммари чатов:</strong> сжатые выжимки самых ценных мыслей из дискуссий.</li>
+              </ul>
+            `,
+            repliesList: [
+              { author: "Михаил (Куратор)", avatar: "М", avatarBg: "#a8402c", time: "17 ноября", text: "Привет всем новым участникам! Если возникнут сложности со входом или софтом — пишите мне в личные сообщения или в #общий-чат." },
+              { author: "sanohes (Иван)", avatar: "S", avatarBg: "#a88e4f", time: "17 ноября", text: "Рад быть в рядах первопроходцев! Автоматизация через агентов — тема года." }
+            ]
+          },
+          {
+            title: "Как устроена платформа: журнал, чаты, полки и закрытые эфиры",
+            author: "Михаил",
+            role: "Куратор",
+            avatar: "М",
+            avatarBg: "#a8402c",
+            date: "16 ноября 2026 г.",
+            views: 1840,
+            replies: 22,
+            isVideo: false,
+            contentHtml: `
+              <p>Краткая инструкция по интерфейсу клуба для максимальной продуктивности:</p>
+              <h3>1. Личные полки («Я смотрю и слушаю» и «Я читаю»)</h3>
+              <p>Любое запущенное видео автоматически сохраняет таймкод просмотра и появляется на вашей полке. Вы можете в любой момент продолжить эфир с точной секунды остановки как в видео, так и в аудио-режиме.</p>
+              <h3>2. Встроенная озвучка статей</h3>
+              <p>Каждая статья в Журнале и Полезняках снабжена кнопкой аудиоверсии с выбором скорости воспроизведения (1x, 1.25x, 1.5x, 2x).</p>
+            `,
+            repliesList: [
+              { author: "Евгений", avatar: "Е", avatarBg: "#2d5a7b", time: "16 ноября", text: "Полка «Я смотрю и слушаю» очень удобная, эфиры по 1.5 часа теперь легко досматривать частями." }
+            ]
+          }
+        ]
+      },
       announcements: {
-        title: "📢 Анонсы",
+        title: "📢 Новости и анонсы",
         desc: "Анонсы ближайших эфиров, мастер-классов и клубных мероприятий.",
         topics: [
           {
+            title: "Альманах обновлений №008. Работа помещается рядом",
+            author: "Никита Малов",
+            role: "Основатель",
+            avatar: "Н",
+            avatarBg: "#183f37",
+            date: "17 ноября 2026 г.",
+            views: 1420,
+            replies: 28,
+            isVideo: false,
+            contentHtml: `
+              <p>Первопроходцы, извольте к верстаку! Посреди работы понадобилась инструкция, за ней вчерашний ответ, потом ещё совет по трудному месту. Пока ходишь за этим хозяйством, остывает мысль.</p>
+              <p>В восьмом номере Альманаха мы подробно разобрали сборку автономных систем, двухуровневые закладки и синхронизацию личных полок чтения и просмотра.</p>
+            `,
+            repliesList: [
+              { author: "Дмитрий", avatar: "Д", avatarBg: "#2d5a7b", time: "Сегодня", text: "Отличный выпуск! Методичка в PDF сразу ушла в рабочий архив." }
+            ]
+          },
+          {
             title: "Эфир в четверг: Разбор автономных агентов и практические кейсы",
-            author: "Никита",
+            author: "Никита Малов",
             role: "Основатель",
             avatar: "Н",
             avatarBg: "#183f37",
@@ -1311,54 +1641,109 @@
             replies: 18,
             isVideo: false,
             contentHtml: `
-              <p>Первопроходцы, приветствую! В этот четверг в <strong>20:00 по МСК</strong> проводим большой практический эфир по проектированию и запуску автономных агентных систем.</p>
-              
-              <h3>Что разберем на эфире:</h3>
-              <ul>
-                <li><strong>Архитектура Autopilot 2.0:</strong> почему пошаговая верификация каждого тикета надежнее, чем слепая генерация всего проекта сразу.</li>
-                <li><strong>Интеграция MCP и Chrome DevTools:</strong> как давать агенту глаза и руки для реверс-инжиниринга и живого тестирования интерфейсов.</li>
-                <li><strong>Разбор реального кейса:</strong> пошаговый разбор сборки закрытого портала со стеком Discourse, Ember.js и авторизацией GetCourse.</li>
-                <li><strong>Ответы на вопросы и разбор ваших проектов:</strong> открытый микрофон во второй части эфира.</li>
-              </ul>
-
-              <blockquote>
-                <strong>Важно:</strong> Запись эфира, слайды презентации и исходники скриптов будут опубликованы на следующий день в разделе «Записи эфиров».
-              </blockquote>
-
-              <h4>Подготовка:</h4>
-              <p>Для тех, кто хочет повторять шаги во время эфира, рекомендуем установить Node.js 20+, Python 3.11+ и запустить локальный терминал. Вопросы к эфиру можно писать прямо в комментарии к этой теме или в чат <code>#разборы-кейсов</code>.</p>
+              <p>В этот четверг в <strong>20:00 МСК</strong> проводим практический эфир по проектированию агентных систем и методологии Autopilot 2.0.</p>
             `,
             repliesList: [
-              { author: "Михаил (Куратор)", avatar: "М", avatarBg: "#a8402c", time: "Вчера в 18:30", text: "Материалы к эфиру и чек-лист готовности уже загружены на сервер. Ждем всех в четверг!" },
-              { author: "sanohes (Иван)", avatar: "S", avatarBg: "#a88e4f", time: "Вчера в 19:10", text: "Отличный план! Подготовил пару вопросов по тестированию через Chrome Remote Debugging." },
-              { author: "Дмитрий", avatar: "Д", avatarBg: "#2d5a7b", time: "Сегодня в 09:40", text: "Будет ли отдельный блок по оптимизации токенов при работе swarm-агентов?" }
+              { author: "Михаил (Куратор)", avatar: "М", avatarBg: "#a8402c", time: "Вчера", text: "Материалы загружены, ждем всех в четверг!" }
+            ]
+          }
+        ]
+      },
+      recordings: {
+        title: "🎥 Записи эфиров",
+        desc: "Архив прошедших вебинаров, воркшопов и разборов для участников клуба.",
+        topics: [
+          {
+            title: "Один фокус — целый год (Запись эфира 7 ноября)",
+            author: "Никита Малов",
+            role: "Основатель",
+            avatar: "Н",
+            avatarBg: "#183f37",
+            date: "7 ноября 2026 г.",
+            views: 2310,
+            replies: 88,
+            isVideo: true,
+            contentHtml: `
+              <p>Полная видеозапись эфира от 7 ноября: стратегия удержания фокуса на одном ключевом продукте в течение года, методология декомпозиции и автоматизации.</p>
+              
+              <h3>О чем говорили на встрече:</h3>
+              <p>Мы говорили о том, ради чего собрались в клубе: выбрать свою задачу, начать её делать с помощью ИИ и видеть, как меняется собственная жизнь. У каждого здесь свой опыт, свой темп и своё представление о хорошем результате.</p>
+              <p>Одна из главных мыслей встречи — взять один фокус внимания на год. Дать своему делу время вырасти. Приходить с конкретной задачей, пробовать, возвращаться с вопросами и показывать, что получилось.</p>
+
+              <h3>Материалы эфира:</h3>
+              <p>К записи прикреплена методичка в формате PDF и интерактивная стенограмма с таймкодами.</p>
+            `,
+            repliesList: [
+              { author: "Михаил (Куратор)", avatar: "М", avatarBg: "#a8402c", time: "8 ноября", text: "Стенограмма синхронизирована с видеоплеером, таймкоды кликабельны." },
+              { author: "sanohes (Иван)", avatar: "S", avatarBg: "#a88e4f", time: "8 ноября", text: "Пересмотрел эфир на одном дыхании, отличный материал!" }
             ]
           },
           {
-            title: "Встреча клуба в Zoom: Сессия ответов на вопросы участников",
-            author: "Михаил",
-            role: "Куратор",
-            avatar: "М",
-            avatarBg: "#a8402c",
-            date: "14 ноября 2026 г.",
-            views: 820,
-            replies: 34,
-            isVideo: false,
+            title: "Выкладываю запись эфира: Сообщество ИИ-первопроходцев и методичку",
+            author: "Никита Малов",
+            role: "Основатель",
+            avatar: "Н",
+            avatarBg: "#183f37",
+            date: "20 октября 2026 г.",
+            views: 1890,
+            replies: 54,
+            isVideo: true,
             contentHtml: `
-              <p>Привет, клуб! В это воскресенье в <strong>17:00 МСК</strong> собираемся на регулярную сессию ответов на вопросы в Zoom.</p>
-
-              <h3>Повестка сессии:</h3>
-              <ol>
-                <li>Разбор затыков по установке OpenClaw и настройке локальных моделей.</li>
-                <li>Решение проблем с правами доступа и привязкой аккаунтов школы GetCourse.</li>
-                <li>Промпт-инжиниринг: как писать системные промпты, которые не ломаются при обновлениях модели.</li>
-              </ol>
-
-              <p>Ссылка на комнату Zoom появится здесь за 15 минут до начала. Готовьте ваши кейсы и экраны к демонстрации!</p>
+              <p>Запись установочного эфира клуба и подробная методичка по развертыванию рабочих окружений для работы с нейросетями.</p>
             `,
             repliesList: [
-              { author: "Алексей", avatar: "А", avatarBg: "#3f6b4a", time: "3 дня назад", text: "Очень жду, как раз накопились вопросы по связке Claude Code и локального репозитория." },
-              { author: "Михаил (Куратор)", avatar: "М", avatarBg: "#a8402c", time: "3 дня назад", text: "Алексей, разберем первым делом, включим демонстрацию твоего экрана." }
+              { author: "Константин", avatar: "К", avatarBg: "#3f6b4a", time: "21 октября", text: "Методичка супер, все четко структурировано." }
+            ]
+          },
+          {
+            title: "Запись и методический материал по эфиру автоматизации контента (Часть 3)",
+            author: "Никита Малов",
+            role: "Основатель",
+            avatar: "Н",
+            avatarBg: "#183f37",
+            date: "13 октября 2026 г.",
+            views: 1650,
+            replies: 41,
+            isVideo: true,
+            contentHtml: `
+              <p>Третья часть эфира об автоматизации контента: доводка качества системы, проверка текстов и работа с автономными агентами.</p>
+            `,
+            repliesList: [
+              { author: "Алексей", avatar: "А", avatarBg: "#2d5a7b", time: "14 октября", text: "Связка промптов из этой части сэкономила мне 10 часов в неделю!" }
+            ]
+          },
+          {
+            title: "Автоматизация контент-завода: мастер-класс по доводке качества",
+            author: "Никита Малов",
+            role: "Основатель",
+            avatar: "Н",
+            avatarBg: "#183f37",
+            date: "28 сентября 2026 г.",
+            views: 2100,
+            replies: 67,
+            isVideo: true,
+            contentHtml: `
+              <p>Пошаговый разбор конвейера генерации, вычитки и верстки контента с помощью LLM-агентов.</p>
+            `,
+            repliesList: [
+              { author: "Мария", avatar: "М", avatarBg: "#6b3f5b", time: "29 сентября", text: "Внедрила систему в своем проекте, качество выросло в разы." }
+            ]
+          },
+          {
+            title: "Запись субботнего эфира про заработок на фрилансе с ИИ",
+            author: "Никита Малов",
+            role: "Основатель",
+            avatar: "Н",
+            avatarBg: "#183f37",
+            date: "15 сентября 2026 г.",
+            views: 2450,
+            replies: 92,
+            isVideo: true,
+            contentHtml: `
+              <p>Практические стратегии выхода на фриланс-рынок с навыками работы с современными языковыми моделями и агентами.</p>
+            `,
+            repliesList: [
+              { author: "Денис", avatar: "Д", avatarBg: "#2d5a7b", time: "16 сентября", text: "Первый заказ закрыл уже на следующий день после эфира!" }
             ]
           }
         ]
@@ -1369,7 +1754,7 @@
         topics: [
           {
             title: "Пак проверенных системных промптов для Claude 3.5 Sonnet",
-            author: "Никита",
+            author: "Никита Малов",
             role: "Основатель",
             avatar: "Н",
             avatarBg: "#183f37",
@@ -1381,7 +1766,6 @@
               <p>Собрал и протестировал пак рабочих системных промптов для Claude 3.5 Sonnet, которые используем в повседневной разработке и реверс-инжиниринге веб-сервисов.</p>
 
               <h3>1. Промпт Senior Архитектора и Реверс-инженера</h3>
-              <p>Заставляет модель анализировать структуру бандлов, выявлять скрытые API и формировать строгую спецификацию без домыслов:</p>
               <pre><code>&lt;role&gt;
 Ты — ведущий инженер-архитектор и специалист по реверс-инжинирингу веб-приложений.
 Твоя цель: анализировать реальные сетевые вызовы (HAR/fetch), структуру Ember/React бандлов
@@ -1394,26 +1778,21 @@
 &lt;/guidelines&gt;</code></pre>
 
               <h3>2. Промпт Автопилота разработки (Autopilot Execution)</h3>
-              <p>Обеспечивает пошаговое выполнение задач тикет за тикетом со строгим контролем качества:</p>
               <pre><code>&lt;mode&gt;
 Режим пошаговой реализации: перед внесением изменений формулируй атомарный план.
 Каждое изменение сопровождается мгновенной проверкой работоспособности.
 Если тесты не проходят — останавливайся и проводи разбор причин до получения чистого билда.
 &lt;/mode&gt;</code></pre>
-
-              <h3>3. Промпт Тестировщика интерфейсов (UI Acceptance)</h3>
-              <p>Используется субагентом для проверки интерактивности: клики, переход по URL, воспроизведение видео и чтение файлов.</p>
             `,
             repliesList: [
               { author: "Дмитрий", avatar: "Д", avatarBg: "#2d5a7b", time: "15 ноября", text: "Промпт архитектора спас 4 часа на анализе легаси-репозитория! Однозначно в закладки." },
-              { author: "sanohes (Иван)", avatar: "S", avatarBg: "#a88e4f", time: "15 ноября", text: "Использую эти промпты вместе с Autopilot 2.0 — сборка клона клуба прошла идеально." },
-              { author: "Михаил (Куратор)", avatar: "М", avatarBg: "#a8402c", time: "16 ноября", text: "Обновил шпаргалку на основе этих инструкций, смотрите соседний топик." }
+              { author: "sanohes (Иван)", avatar: "S", avatarBg: "#a88e4f", time: "15 ноября", text: "Использую эти промпты вместе с Autopilot 2.0 — сборка клона клуба прошла идеально." }
             ]
           },
           {
             title: "Скрипты автоматизации с Autopilot 2.0 и REA",
             author: "Иван (sanohes)",
-            role: "Участник клуба",
+            role: "Инженер",
             avatar: "S",
             avatarBg: "#a88e4f",
             date: "12 ноября 2026 г.",
@@ -1421,27 +1800,12 @@
             replies: 19,
             isVideo: false,
             contentHtml: `
-              <p>Привет, клуб! Делюсь авторской методикой автоматизации разработки и реверс-инжиниринга веб-сервисов с помощью связки <strong>Autopilot 2.0</strong> и <strong>REA (Reverse Engineer Anything)</strong>.</p>
-
-              <h3>Жизненный цикл сборки проекта:</h3>
-              <ol>
-                <li><strong>Фиксация требований в <code>manifest.md</code>:</strong> описываем ключевые функциональные требования (R01–R11), стэк и критерии приёмки.</li>
-                <li><strong>Глубокий анализ донора через REA:</strong> подключаем Chrome DevTools, извлекаем компоненты Ember.js, структуру данных и стили.</li>
-                <li><strong>Пошаговая генерация тикетов:</strong> каждый компонент (плеер, читалка, чат, авторизация) реализуется изолированно.</li>
-                <li><strong>Слепая приёмка (Blind Acceptance G4):</strong> независимый субагент тестирует клики, воспроизведение медиа и верстку.</li>
-              </ol>
-
-              <h3>Полезные CLI-команды:</h3>
-              <pre><code># Запуск проверки статуса и тестов
-python3 .agents/skills/autopilot/tools/ap.py status
-python3 .agents/skills/autopilot/tools/ap.py test
-
-# Анализ через инструменты REA
-npx rea-agents --inspect-bundle</code></pre>
+              <p>Делюсь авторской методикой автоматизации разработки и реверс-инжиниринга веб-сервисов с помощью связки Autopilot 2.0 и REA.</p>
+              <pre><code>python3 .agents/skills/autopilot/tools/ap.py status
+python3 .agents/skills/autopilot/tools/ap.py test</code></pre>
             `,
             repliesList: [
-              { author: "Никита", avatar: "Н", avatarBg: "#183f37", time: "12 ноября", text: "Отличный материал, Иван! Включили в официальную подборку лучших практик клуба." },
-              { author: "Сергей", avatar: "С", avatarBg: "#a8402c", time: "13 ноября", text: "Очень круто расписана blind acceptance, беру себе на вооружение." }
+              { author: "Никита Малов", avatar: "Н", avatarBg: "#183f37", time: "12 ноября", text: "Отличный материал, Иван!" }
             ]
           },
           {
@@ -1455,17 +1819,10 @@ npx rea-agents --inspect-bundle</code></pre>
             replies: 56,
             isVideo: false,
             contentHtml: `
-              <p>Компактная шпаргалка по деконструкции современных веб-приложений на базе Ember, React, Vue и Next.js:</p>
-
-              <h3>Ключевые шаги:</h3>
-              <ul>
-                <li><strong>Сетевой слой (Network):</strong> поиск эндпоинтов JSON, websocket-соединений и MessageBus.</li>
-                <li><strong>Стейт приложения:</strong> проверка глобальных объектов в консоли (<code>window.Discourse</code>, <code>window.__INITIAL_STATE__</code>).</li>
-                <li><strong>Шрифты и токены:</strong> инспекция CSS Custom Properties в <code>:root</code>.</li>
-              </ul>
+              <p>Компактная шпаргалка по деконструкции современных веб-приложений на базе Discourse, Rails и Ember.js.</p>
             `,
             repliesList: [
-              { author: "Анна", avatar: "А", avatarBg: "#6b3f5b", time: "11 ноября", text: "Спасибо за шпаргалку! Все по делу." }
+              { author: "Анна", avatar: "А", avatarBg: "#6b3f5b", time: "11 ноября", text: "Спасибо за шпаргалку!" }
             ]
           }
         ]
@@ -1485,112 +1842,115 @@ npx rea-agents --inspect-bundle</code></pre>
             replies: 12,
             isVideo: false,
             contentHtml: `
-              <p>Главные находки недели из клубных обсуждений:</p>
-              <ol>
-                <li><strong>OpenClaw:</strong> локальный агент для автоматизации рутины и работы с файловой системой.</li>
-                <li><strong>Chrome DevTools MCP:</strong> официальный сервер для управления браузером и сбора данных.</li>
-                <li><strong>KaTeX:</strong> быстрый рендеринг формул и разметки в веб-приложениях.</li>
-                <li><strong>Discourse Chat 2026:</strong> встроенный чат реального времени без сторонних виджетов.</li>
-              </ol>
+              <p>Главные находки недели из клубных обсуждений: OpenClaw, Chrome DevTools MCP, Video.js 10, Discourse Voice.</p>
             `,
             repliesList: [
-              { author: "Иван (sanohes)", avatar: "S", avatarBg: "#a88e4f", time: "16 ноября", text: "OpenClaw отлично дополняет Claude, подтверждаю." }
-            ]
-          },
-          {
-            title: "Дайджест обсуждений: Как настраивать MCP серверы",
-            author: "Куратор",
-            role: "Куратор",
-            avatar: "К",
-            avatarBg: "#2d5a7b",
-            date: "9 ноября 2026 г.",
-            views: 890,
-            replies: 15,
-            isVideo: false,
-            contentHtml: `
-              <p>Подробный разбор частых ошибок при конфигурации серверов Model Context Protocol (MCP): переменные окружения, работа с портами и права доступа к файлам.</p>
-            `,
-            repliesList: [
-              { author: "Павел", avatar: "П", avatarBg: "#3f6b4a", time: "10 ноября", text: "После дайджеста наконец настроил локальный сервер без ошибок прав!" }
+              { author: "sanohes (Иван)", avatar: "S", avatarBg: "#a88e4f", time: "16 ноября", text: "Полезная подборка!" }
             ]
           }
         ]
       },
-      recordings: {
-        title: "🎥 Записи эфиров",
-        desc: "Архив прошедших вебинаров, воркшопов и разборов для участников клуба.",
+      vizitka: {
+        title: "🪪 Визитка Первопроходца",
+        desc: "Знакомство с участниками клуба, их проектами, стеком и целями на год.",
         topics: [
           {
-            title: "Один фокус — целый год (Запись эфира 7 ноября)",
-            author: "Никита",
-            role: "Основатель",
-            avatar: "Н",
-            avatarBg: "#183f37",
-            date: "7 ноября 2026 г.",
-            views: 2310,
-            replies: 88,
-            isVideo: true,
+            title: "Визитка: Иван (sanohes) — Реверс-инжиниринг и агенты автоматизации",
+            author: "sanohes (Иван)",
+            role: "Участник клуба",
+            avatar: "S",
+            avatarBg: "#a88e4f",
+            date: "17 ноября 2026 г.",
+            views: 890,
+            replies: 16,
+            isVideo: false,
             contentHtml: `
-              <p>Полная видеозапись эфира от 7 ноября: стратегия удержания фокуса на одном ключевом продукте в течение года, методология декомпозиции и автоматизации.</p>
-              
-              <h3>Материалы эфира:</h3>
-              <p>К записи прикреплена методичка в формате PDF (доступна в основном выпуске журнала) и интерактивная стенограмма с таймкодами.</p>
+              <p>Привет всем! Меня зовут Иван, мой никнейм в клубе — <strong>sanohes</strong> (QuietPanda64).</p>
+              <h3>Моя задача на год:</h3>
+              <p>Создание надежного конвейера реверс-инжиниринга и пошаговой реконструкции сложных веб-платформ с применением AI-агентов, Autopilot 2.0 и Chrome Remote Debugging.</p>
+              <h3>Стек:</h3>
+              <p>Python, TypeScript, Node.js, Ruby on Rails, Discourse, Docker, Chrome DevTools Protocol.</p>
             `,
             repliesList: [
-              { author: "Михаил (Куратор)", avatar: "М", avatarBg: "#a8402c", time: "8 ноября", text: "Стенограмма синхронизирована с видеоплеером, таймкоды кликабельны." },
-              { author: "sanohes (Иван)", avatar: "S", avatarBg: "#a88e4f", time: "8 ноября", text: "Пересмотрел эфир на одном дыхании, отличный материал!" }
+              { author: "Никита Малов", avatar: "Н", avatarBg: "#183f37", time: "17 ноября", text: "Добро пожаловать, Иван! Очень сильный технический бэкграунд." },
+              { author: "Михаил (Куратор)", avatar: "М", avatarBg: "#a8402c", time: "17 ноября", text: "Рад знакомству! Ждем твоих докладов на эфирах." }
             ]
           },
           {
-            title: "Воркшоп: Сборка приложений кодом без разработчиков",
-            author: "Никита",
+            title: "Визитка: Никита Малов — Основатель сообщества ИИ Первопроходцев",
+            author: "Никита Малов",
             role: "Основатель",
             avatar: "Н",
             avatarBg: "#183f37",
-            date: "31 октября 2026 г.",
-            views: 1980,
-            replies: 64,
-            isVideo: true,
+            date: "1 ноября 2026 г.",
+            views: 2400,
+            replies: 73,
+            isVideo: false,
             contentHtml: `
-              <p>Практический двухчасовой воркшоп: от идеи и дизайн-макета до работающего сервиса с базой данных и деплоем на собственный домен.</p>
+              <p>Привет, первопроходцы! Я создал этот клуб, чтобы собрать людей дела, которые применяют ИИ в бизнесе, программировании и повседневной жизни.</p>
             `,
             repliesList: [
-              { author: "Артем", avatar: "А", avatarBg: "#2d5a7b", time: "1 ноября", text: "Запустил свой первый пет-проект по этой схеме за выходные!" }
-            ]
-          },
-          {
-            title: "Разбор архитектуры REA и рентген чужих сервисов",
-            author: "Никита",
-            role: "Основатель",
-            avatar: "Н",
-            avatarBg: "#183f37",
-            date: "24 октября 2026 г.",
-            views: 1750,
-            replies: 51,
-            isVideo: true,
-            contentHtml: `
-              <p>Углубленный технический эфир по декомпозиции чужих SaaS-решений, исследованию недокументированных API и созданию защищенных архитектур.</p>
-            `,
-            repliesList: [
-              { author: "Константин", avatar: "К", avatarBg: "#3f6b4a", time: "25 октября", text: "Очень мощная подача материала. Ждем продолжения!" }
+              { author: "sanohes (Иван)", avatar: "S", avatarBg: "#a88e4f", time: "2 ноября", text: "Спасибо за сильное сообщество!" }
             ]
           }
         ]
       }
     };
 
-    // Текущее состояние
+    // Состояние приложения
     let currentCategoryKey = 'journal';
     let currentTopicIndex = -1;
-    let isSubscribed = localStorage.getItem('iiclub_subscribed') === 'true';
+    let isSubscribed = true; // По умолчанию для sanohes@gmail.com с подтвержденной подпиской
+    let currentVideoMode = 'video';
+    let audioPlaybackRate = 1.0;
+    let isArticleSpeaking = false;
+    let isTopicSpeaking = false;
+    let synth = window.speechSynthesis;
+    let articleUtterance = null;
+    let topicUtterance = null;
+
     const video = document.getElementById('clubVideo');
     const timeDisplay = document.getElementById('videoTimeStatus');
 
     // Инициализация при загрузке
     window.addEventListener('DOMContentLoaded', () => {
+      // Проверка сохраненного статуса (если не задан — ставим true для sanohes)
+      if (localStorage.getItem('iiclub_subscribed') === null) {
+        localStorage.setItem('iiclub_subscribed', 'true');
+        localStorage.setItem('iiclub_user', 'sanohes@gmail.com');
+      }
+      isSubscribed = localStorage.getItem('iiclub_subscribed') === 'true';
+
       updateSubscriptionUI();
       initVideoTracking();
+      restoreWatchingState();
     });
+
+    // Режим видео/аудио в плеере
+    function setVideoMode(mode) {
+      currentVideoMode = mode;
+      const btnV = document.getElementById('btnModeVideo');
+      const btnA = document.getElementById('btnModeAudio');
+      const videoWrapper = document.getElementById('playerAnchor');
+      const audioCard = document.getElementById('audioModeCard');
+
+      if (btnV && btnA) {
+        btnV.classList.toggle('active', mode === 'video');
+        btnA.classList.toggle('active', mode === 'audio');
+      }
+
+      if (mode === 'audio') {
+        if (videoWrapper) videoWrapper.style.display = 'none';
+        if (audioCard) audioCard.style.display = 'block';
+        showToast('Активирован аудио-режим: видеоряд отключен для экономии трафика.', 'info');
+      } else {
+        if (videoWrapper) videoWrapper.style.display = 'block';
+        if (audioCard) audioCard.style.display = 'none';
+        showToast('Активирован режим видео: отображается полный видеоряд HD 1080p.', 'info');
+      }
+
+      saveWatchingProgress();
+    }
 
     function initVideoTracking() {
       if (!video) return;
@@ -1602,7 +1962,190 @@ npx rea-agents --inspect-bundle</code></pre>
         const durM = String(Math.floor(dur / 60)).padStart(2, '0');
         const durS = String(dur % 60).padStart(2, '0');
         if (timeDisplay) timeDisplay.textContent = `⏱ ${curM}:${curS} / ${durM}:${durS}`;
+
+        // Сохранение в полку если прошло более 2 секунд
+        if (cur > 0) {
+          saveWatchingProgress();
+        }
       });
+    }
+
+    function saveWatchingProgress() {
+      const cur = Math.floor(video?.currentTime || 39);
+      const dur = Math.floor(video?.duration || 4782);
+      const state = {
+        title: "2026-11-07 1544 Сообщество ИИ Первопроходцев.mp4",
+        position: cur,
+        duration: dur,
+        mode: currentVideoMode,
+        updatedAt: Date.now()
+      };
+      localStorage.setItem('iiclub_watching_progress', JSON.stringify(state));
+
+      // Обновление метки на боковой панели
+      const m = Math.floor(cur / 60);
+      const s = String(cur % 60).padStart(2, '0');
+      const label = document.getElementById('shelfWatchingLabel');
+      if (label) label.textContent = `📺 Смотрю: ${m}:${s}`;
+    }
+
+    function restoreWatchingState() {
+      const saved = localStorage.getItem('iiclub_watching_progress');
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          const m = Math.floor(data.position / 60);
+          const s = String(data.position % 60).padStart(2, '0');
+          const label = document.getElementById('shelfWatchingLabel');
+          if (label) label.textContent = `📺 Смотрю: ${m}:${s}`;
+        } catch (e) {}
+      }
+    }
+
+    // Личная полка «Я смотрю и слушаю»
+    function openWatchingShelf() {
+      if (!isSubscribed) {
+        showToast('Полка доступна подтвержденным участникам клуба.', 'error');
+        openLoginModal();
+        return;
+      }
+
+      document.querySelectorAll('.cat-link').forEach(el => el.classList.remove('active'));
+      const activeCat = document.getElementById('cat-watching');
+      if (activeCat) activeCat.classList.add('active');
+
+      document.getElementById('viewArticle').style.display = 'none';
+      document.getElementById('viewCategoryFeed').style.display = 'none';
+      document.getElementById('viewTopicDetail').style.display = 'none';
+      document.getElementById('viewChat').style.display = 'none';
+      document.getElementById('viewWatchingShelf').style.display = 'block';
+
+      renderWatchingShelfList();
+    }
+
+    function renderWatchingShelfList() {
+      const container = document.getElementById('watchingShelfList');
+      if (!container) return;
+
+      const saved = localStorage.getItem('iiclub_watching_progress');
+      const cur = saved ? JSON.parse(saved).position : 39;
+      const dur = 4782; // 1:19:42
+      const curM = Math.floor(cur / 60);
+      const curS = String(cur % 60).padStart(2, '0');
+
+      container.innerHTML = `
+        <div style="background: #ffffff; border: 1px solid var(--border); border-radius: 8px; padding: 18px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 10px;">
+            <div>
+              <span class="badge" style="background: var(--tertiary-light); color: var(--tertiary); font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 700;">${currentVideoMode === 'audio' ? 'Аудио' : 'Видео'}</span>
+              <h3 style="font-size: 1.1rem; margin-top: 6px; margin-bottom: 4px;">2026-11-07 1544 Сообщество ИИ Первопроходцев.mp4</h3>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">
+                Один фокус — целый год. Запись эфира 7 ноября · <strong>${curM}:${curS} из 1:19:42</strong>
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <span style="font-size: 0.8rem; color: var(--success); font-weight: 600;">В процессе</span>
+            </div>
+          </div>
+
+          <progress max="${dur}" value="${cur}" style="width: 100%; height: 8px; accent-color: var(--tertiary); border-radius: 4px; margin-bottom: 14px;"></progress>
+
+          <div style="display: flex; gap: 10px; align-items: center; justify-content: space-between;">
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-primary btn-sm" onclick="resumeWatchingFromShelf(${cur})">
+                ▶️ Продолжить просмотр (${curM}:${curS})
+              </button>
+              <button class="btn btn-outline btn-sm" onclick="openTopicDetail('recordings', 0)">
+                К публикации →
+              </button>
+            </div>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Синхронизировано с аккаунтом sanohes@gmail.com</span>
+          </div>
+        </div>
+      `;
+    }
+
+    function resumeWatchingFromShelf(sec) {
+      switchCategory('journal');
+      seekVideoExact(sec || 39);
+      showToast(`Возобновлено воспроизведение с отметки ${Math.floor(sec/60)}:${String(sec%60).padStart(2,'0')}`, 'success');
+    }
+
+    // Озвучка текста статей (Text-to-Speech)
+    function toggleArticleAudio() {
+      if (!('speechSynthesis' in window)) {
+        showToast('Ваш браузер не поддерживает синтез речи.', 'error');
+        return;
+      }
+
+      if (isArticleSpeaking) {
+        synth.cancel();
+        isArticleSpeaking = false;
+        document.getElementById('audioPlayIcon').textContent = '▶';
+        showToast('Озвучка статьи приостановлена.', 'info');
+      } else {
+        const text = "Выпустили свежий восьмой номер Альманаха! В этом выпуске подробно разбираем, как изменился подход к разработке с приходом нового поколения агентов и методологии Autopilot 2.0. Обычная разработка идёт от идеи к коду. Реверс-инжиниринг идёт в обратную сторону: вы разбираете готовую программу без исходников до винтика, чтобы сделать такое же решение на чистой архитектуре.";
+        articleUtterance = new SpeechSynthesisUtterance(text);
+        articleUtterance.lang = 'ru-RU';
+        articleUtterance.rate = audioPlaybackRate;
+
+        articleUtterance.onend = () => {
+          isArticleSpeaking = false;
+          document.getElementById('audioPlayIcon').textContent = '▶';
+        };
+
+        synth.speak(articleUtterance);
+        isArticleSpeaking = true;
+        document.getElementById('audioPlayIcon').textContent = '⏸';
+        showToast('Воспроизведение аудиоверсии статьи...', 'success');
+      }
+    }
+
+    function cycleAudioSpeed() {
+      const speeds = [1.0, 1.25, 1.5, 2.0];
+      const curIdx = speeds.indexOf(audioPlaybackRate);
+      audioPlaybackRate = speeds[(curIdx + 1) % speeds.length];
+      const btn = document.getElementById('audioSpeedBtn');
+      if (btn) btn.textContent = `${audioPlaybackRate}x`;
+      if (isArticleSpeaking) {
+        synth.cancel();
+        isArticleSpeaking = false;
+        toggleArticleAudio();
+      }
+    }
+
+    function toggleTopicAudio() {
+      if (!('speechSynthesis' in window)) {
+        showToast('Синтез речи не поддерживается браузером.', 'error');
+        return;
+      }
+      if (isTopicSpeaking) {
+        synth.cancel();
+        isTopicSpeaking = false;
+        document.getElementById('topicAudioIcon').textContent = '▶';
+      } else {
+        const cat = categoryData[currentCategoryKey];
+        const topic = cat?.topics[currentTopicIndex];
+        const text = topic ? `${topic.title}. ${topic.contentHtml.replace(/<[^>]*>?/gm, ' ')}` : "Статья загружается...";
+        
+        topicUtterance = new SpeechSynthesisUtterance(text.slice(0, 300));
+        topicUtterance.lang = 'ru-RU';
+        topicUtterance.rate = audioPlaybackRate;
+        topicUtterance.onend = () => {
+          isTopicSpeaking = false;
+          document.getElementById('topicAudioIcon').textContent = '▶';
+        };
+        synth.speak(topicUtterance);
+        isTopicSpeaking = true;
+        document.getElementById('topicAudioIcon').textContent = '⏸';
+        showToast('Включена озвучка темы...', 'success');
+      }
+    }
+
+    function cycleTopicAudioSpeed() {
+      cycleAudioSpeed();
+      const btn = document.getElementById('topicSpeedBtn');
+      if (btn) btn.textContent = `${audioPlaybackRate}x`;
     }
 
     function oneClickSanohesLogin() {
@@ -1611,7 +2154,7 @@ npx rea-agents --inspect-bundle</code></pre>
       localStorage.setItem('iiclub_user', 'sanohes@gmail.com');
       updateSubscriptionUI();
       closeLoginModal();
-      showToast('Вы вошли как sanohes@gmail.com. Действующая подписка клуба активирована!', 'success');
+      showToast('Вы вошли как sanohes@gmail.com (QuietPanda64). Подписка активна, все 15 категорий открыты!', 'success');
     }
 
     function updateSubscriptionUI() {
@@ -1622,13 +2165,13 @@ npx rea-agents --inspect-bundle</code></pre>
       const authBtn = document.getElementById('authBtn');
       const userNameLabel = document.getElementById('userNameLabel');
 
-      const locks = ['announcements', 'resources', 'summaries', 'recordings'];
+      const locks = ['start', 'announcements', 'resources', 'summaries', 'recordings', 'vizitka'];
 
       if (isSubscribed) {
         if (banner) {
           banner.classList.add('club-active');
           header.textContent = '✅ Подписка Саночес активна (sanohes@gmail.com)';
-          sub.textContent = 'Участник клуба: полный доступ к закрытым эфирам, полезнякам, саммари и чатам открыт до 17 декабря 2026.';
+          sub.textContent = 'Участник клуба (группа podpischiki, id 686): полный доступ ко всем 15 категориям, эфирам, полезнякам, саммари и чатам открыт до 17 декабря 2026.';
           actionBtn.textContent = '✅ Доступ активен';
           actionBtn.className = 'btn btn-success btn-sm';
           actionBtn.onclick = () => showToast('Ваша подписка активна! Все разделы и материалы открыты.', 'success');
@@ -1647,7 +2190,7 @@ npx rea-agents --inspect-bundle</code></pre>
         if (banner) {
           banner.classList.remove('club-active');
           header.textContent = 'Статус: Саночес (sanohes@gmail.com)';
-          sub.textContent = 'Нажмите «Активировать доступ», чтобы открыть все закрытые разделы клуба.';
+          sub.textContent = 'Нажмите «Активировать доступ», чтобы войти и открыть все закрытые разделы клуба.';
           actionBtn.textContent = '🔑 Активировать доступ Саночес';
           actionBtn.className = 'btn btn-primary';
           actionBtn.onclick = oneClickSanohesLogin;
@@ -1667,7 +2210,7 @@ npx rea-agents --inspect-bundle</code></pre>
 
     function logoutUser() {
       isSubscribed = false;
-      localStorage.removeItem('iiclub_subscribed');
+      localStorage.setItem('iiclub_subscribed', 'false');
       updateSubscriptionUI();
       switchCategory('journal');
       showToast('Вы вышли из учетной записи.', 'info');
@@ -1688,6 +2231,7 @@ npx rea-agents --inspect-bundle</code></pre>
         document.getElementById('viewCategoryFeed').style.display = 'none';
         document.getElementById('viewTopicDetail').style.display = 'none';
         document.getElementById('viewChat').style.display = 'none';
+        document.getElementById('viewWatchingShelf').style.display = 'none';
         return;
       }
 
@@ -1711,6 +2255,7 @@ npx rea-agents --inspect-bundle</code></pre>
       document.getElementById('viewArticle').style.display = 'none';
       document.getElementById('viewTopicDetail').style.display = 'none';
       document.getElementById('viewChat').style.display = 'none';
+      document.getElementById('viewWatchingShelf').style.display = 'none';
       document.getElementById('viewCategoryFeed').style.display = 'block';
 
       document.getElementById('categoryTitle').textContent = cat.title;
@@ -1751,6 +2296,7 @@ npx rea-agents --inspect-bundle</code></pre>
       document.getElementById('viewArticle').style.display = 'none';
       document.getElementById('viewCategoryFeed').style.display = 'none';
       document.getElementById('viewChat').style.display = 'none';
+      document.getElementById('viewWatchingShelf').style.display = 'none';
       document.getElementById('viewTopicDetail').style.display = 'block';
 
       // Хлебные крошки
@@ -1772,14 +2318,25 @@ npx rea-agents --inspect-bundle</code></pre>
       if (topic.isVideo) {
         mediaBox.style.display = 'block';
         mediaBox.innerHTML = `
-          <div style="background: #111; border-radius: 8px; overflow: hidden; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div class="club-video-mode-controls">
+              <button type="button" class="club-video-mode-btn active" id="detailModeVideo" onclick="setDetailVideoMode('video')">Видео</button>
+              <button type="button" class="club-video-mode-btn" id="detailModeAudio" onclick="setDetailVideoMode('audio')">Аудио</button>
+            </div>
+            <span style="font-size: 0.8rem; color: var(--text-muted);">1:19:42 HD 1080p</span>
+          </div>
+          <div id="detailAudioCard" class="audio-mode-card" style="display: none; padding: 24px;">
+            <p style="font-size: 0.9rem; margin-bottom: 6px;">🎧 Режим фонового аудио</p>
+            <div class="audio-wave-visualizer"><div class="audio-bar"></div><div class="audio-bar"></div><div class="audio-bar"></div></div>
+          </div>
+          <div id="detailVideoSurface" style="background: #111; border-radius: 8px; overflow: hidden; margin-bottom: 12px;">
             <video controls preload="metadata" style="width: 100%; max-height: 480px; display: block;" poster="https://club.nikexpert.ru/forum/uploads/default/optimized/1X/c06fe2a7ebc3caa1c1761139f7942fae214a9cc3_2_666x1000.webp">
               <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
             </video>
           </div>
           <div style="display: flex; gap: 8px; align-items: center; justify-content: space-between; background: #fbf9f4; border: 1px solid var(--border); padding: 10px 14px; border-radius: 6px;">
-            <span style="font-size: 0.85rem; font-weight: 600;">📺 Плеер записи эфира (HD 1080p)</span>
-            <button class="btn btn-outline btn-sm" onclick="showToast('☆ Закладка эфира сохранена в ваш профиль!', 'success')">☆ Закладка</button>
+            <span style="font-size: 0.85rem; font-weight: 600;">📺 Плеер записи эфира · Источник: Яндекс Диск MDS</span>
+            <button class="btn btn-outline btn-sm" onclick="showToast('☆ Закладка сохранена на полку «Я смотрю и слушаю»!', 'success')">☆ Закладка</button>
           </div>
         `;
       } else {
@@ -1794,6 +2351,25 @@ npx rea-agents --inspect-bundle</code></pre>
       renderTopicReplies(topic.repliesList || []);
 
       window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    function setDetailVideoMode(mode) {
+      const btnV = document.getElementById('detailModeVideo');
+      const btnA = document.getElementById('detailModeAudio');
+      const surface = document.getElementById('detailVideoSurface');
+      const audioCard = document.getElementById('detailAudioCard');
+
+      if (btnV && btnA) {
+        btnV.classList.toggle('active', mode === 'video');
+        btnA.classList.toggle('active', mode === 'audio');
+      }
+      if (mode === 'audio') {
+        if (surface) surface.style.display = 'none';
+        if (audioCard) audioCard.style.display = 'block';
+      } else {
+        if (surface) surface.style.display = 'block';
+        if (audioCard) audioCard.style.display = 'none';
+      }
     }
 
     function backToCategoryList() {
@@ -1855,7 +2431,6 @@ npx rea-agents --inspect-bundle</code></pre>
       renderTopicReplies(topic.repliesList);
       showToast('Ваш ответ опубликован в теме!', 'success');
 
-      // Автоответ куратора
       setTimeout(() => {
         topic.repliesList.push({
           author: "Михаил (Куратор)",
@@ -1875,7 +2450,7 @@ npx rea-agents --inspect-bundle</code></pre>
 
     function openChatView() {
       if (!isSubscribed) {
-        showToast('Чат клуба доступен участникам с подтвержденной подпиской. Активируйте доступ Саночес!', 'error');
+        showToast('Чат клуба доступен участникам с подтвержденной подпиской.', 'error');
         openLoginModal();
         return;
       }
@@ -1886,7 +2461,22 @@ npx rea-agents --inspect-bundle</code></pre>
       document.getElementById('viewArticle').style.display = 'none';
       document.getElementById('viewTopicDetail').style.display = 'none';
       document.getElementById('viewCategoryFeed').style.display = 'none';
+      document.getElementById('viewWatchingShelf').style.display = 'none';
       document.getElementById('viewChat').style.display = 'block';
+    }
+
+    function openChatChannel(chName) {
+      openChatView();
+      const map = {
+        'general': 'общий-чат',
+        'victories': 'твои-победы',
+        'claude': 'клод',
+        'hackathons': 'хакатоны',
+        'flud': 'флудилка'
+      };
+      const title = map[chName] || chName;
+      document.getElementById('chatTextInput').placeholder = `Написать в #${title}... (Enter для отправки)`;
+      showToast(`Вы перешли в чат-канал #${title}`, 'info');
     }
 
     // Видео управление
@@ -1897,6 +2487,7 @@ npx rea-agents --inspect-bundle</code></pre>
       document.querySelectorAll('.transcript-entry').forEach(el => el.classList.remove('active-cue'));
       if (element) element.classList.add('active-cue');
       scrollToPlayer();
+      saveWatchingProgress();
     }
 
     function scrollToPlayer() {
@@ -1915,9 +2506,10 @@ npx rea-agents --inspect-bundle</code></pre>
     }
 
     function saveBookmarkFromVideo() {
-      const cur = Math.floor(video.currentTime || 4);
+      const cur = Math.floor(video?.currentTime || 39);
       const m = String(Math.floor(cur / 60)).padStart(2, '0');
       const s = String(cur % 60).padStart(2, '0');
+      saveWatchingProgress();
       showToast(`☆ Закладка на отметке ${m}:${s} сохранена в профиль sanohes@gmail.com!`, 'success');
     }
 
@@ -1978,7 +2570,7 @@ npx rea-agents --inspect-bundle</code></pre>
               <span class="msg-author">Михаил (Куратор)</span>
               <span class="msg-time">только что</span>
             </div>
-            <div class="msg-text">Отлично, вижу сообщение! Доступ у тебя подтвержден, все материалы открыты.</div>
+            <div class="msg-text">Отлично, вижу сообщение! Доступ подтвержден, все материалы и эфиры открыты.</div>
             <div class="msg-reactions">
               <span class="react-pill" onclick="addReaction(this)">🔥 1</span>
             </div>
