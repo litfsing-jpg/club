@@ -7,10 +7,10 @@
   <link rel="icon" href="https://club.nikexpert.ru/forum/uploads/default/optimized/1X/2cbafb1eeb8ec8095ee09273540ab221edaf9a51_2_32x32.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   
   <style>
-    /* Оригинальная палитра ИИ Клуба (Discourse) */
+    /* Фирменная палитра ИИ Клуба (Discourse) */
     :root {
       --primary: #23201b;                  /* Теплый графит */
       --secondary: #faf8f3;                /* Кремовая бумага */
@@ -19,7 +19,6 @@
       --tertiary-light: #e6eee9;
       --quaternary: #0f2a24;
       --highlight: #eddcae;                /* Песочно-золотистый */
-      --highlight-bg: #fcf9f2;
       --border: #ebe9e6;                   /* Мягкая граница */
       --card-bg: #ffffff;
       --text: #23201b;
@@ -27,6 +26,7 @@
       --success: #3f6b4a;
       --success-bg: #e6f4ea;
       --danger: #a8402c;
+      --danger-bg: #fdf2f0;
       --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       --font-mono: 'JetBrains Mono', Consolas, Monaco, monospace;
     }
@@ -60,7 +60,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 16px;
     }
     .brand {
       display: flex;
@@ -68,14 +68,14 @@
       gap: 10px;
       text-decoration: none;
       color: var(--primary);
-      font-weight: 700;
+      font-weight: 800;
       font-size: 1.15rem;
     }
     .brand-badge {
       background: var(--tertiary);
       color: #fff;
       font-size: 0.7rem;
-      padding: 3px 7px;
+      padding: 3px 8px;
       border-radius: 4px;
       font-weight: 600;
       letter-spacing: 0.02em;
@@ -83,7 +83,7 @@
     .header-nav {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
     .header-tab {
       padding: 6px 14px;
@@ -105,22 +105,23 @@
       color: var(--tertiary);
       border-color: var(--border);
       box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      font-weight: 600;
     }
 
     .user-section {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
-      padding: 7px 14px;
+      padding: 8px 14px;
       border-radius: 6px;
       font-size: 0.875rem;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       border: 1px solid transparent;
       transition: all 0.15s;
@@ -129,31 +130,33 @@
     }
     .btn-primary { background: var(--tertiary); color: #fff; }
     .btn-primary:hover { background: var(--tertiary-hover); }
+    .btn-success { background: var(--success); color: #fff; }
     .btn-outline { background: var(--card-bg); border-color: var(--border); color: var(--primary); }
     .btn-outline:hover { background: #f4f1ea; }
-    .btn-sm { padding: 4px 10px; font-size: 0.8rem; }
+    .btn-sm { padding: 5px 10px; font-size: 0.8rem; }
 
     .user-badge {
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 4px 10px 4px 4px;
+      padding: 4px 12px 4px 4px;
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 20px;
       font-size: 0.85rem;
       font-weight: 600;
+      cursor: pointer;
     }
     .avatar-circle {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: #a88e4f;
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: 700;
     }
 
@@ -189,7 +192,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 7px 12px;
+      padding: 8px 12px;
       border-radius: 6px;
       color: var(--primary);
       text-decoration: none;
@@ -207,9 +210,29 @@
       background: var(--border);
       color: var(--text-muted);
     }
-    .cat-locked { color: var(--danger); font-size: 0.8rem; }
+    .cat-locked { font-size: 0.85rem; }
 
-    /* Контентные карточки */
+    /* Баннер статуса доступа */
+    .status-banner {
+      background: #fbf6ec;
+      border: 1px solid #ebd9b5;
+      border-left: 5px solid var(--highlight);
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .status-banner.club-active {
+      background: #f0f7f2;
+      border-color: #c3e2cb;
+      border-left-color: var(--success);
+    }
+
+    /* Карточки */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -321,11 +344,49 @@
       font-weight: 700;
     }
 
-    /* Блок вложений материалов (PDF и раздатки) */
+    /* Видеоплеер */
+    .video-wrapper {
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 18px 0;
+      border: 1px solid #14110d;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    video {
+      width: 100%;
+      height: auto;
+      max-height: 480px;
+      display: block;
+      background: #000;
+    }
+    .player-dock {
+      background: #14110d;
+      padding: 12px 18px;
+      color: #faf8f3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 0.85rem;
+    }
+    .dock-btn {
+      background: var(--tertiary);
+      color: #fff;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    .dock-btn:hover { background: #23544a; }
+
+    /* Блок PDF раздатки */
     .attachment-card {
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 16px;
+      padding: 16px 20px;
       background: #fdfcf9;
       margin: 20px 0;
       display: flex;
@@ -336,32 +397,22 @@
     .attachment-meta {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
     .attachment-icon {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       border-radius: 6px;
       background: #fee2e2;
       color: var(--danger);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.25rem;
-      font-weight: 700;
-    }
-    .attachment-title {
-      font-weight: 600;
-      font-size: 0.95rem;
-      color: var(--primary);
-    }
-    .attachment-size {
-      font-size: 0.8rem;
-      color: var(--text-muted);
+      font-size: 1.15rem;
+      font-weight: 800;
     }
 
-    /* Встроенный PDF просмотрщик */
-    .pdf-viewer-box {
+    .pdf-viewer-frame {
       display: none;
       margin-top: 14px;
       border: 1px solid var(--border);
@@ -370,14 +421,44 @@
       height: 480px;
       background: #fff;
     }
-    .pdf-viewer-box.open { display: block; }
-    .pdf-viewer-box iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
+    .pdf-viewer-frame.open { display: block; }
+    .pdf-viewer-frame iframe { width: 100%; height: 100%; border: none; }
+
+    /* Транскрипт */
+    .transcript-box {
+      background: #faf8f3;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      max-height: 360px;
+      overflow-y: auto;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .transcript-entry {
+      padding: 8px 12px;
+      margin-bottom: 6px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .transcript-entry:hover { background: #eeebe3; }
+    .transcript-entry.active-cue {
+      background: #ebdcae;
+      border-left: 3px solid #b78a2e;
+    }
+    .cue-time {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--tertiary);
+      font-weight: 700;
+      margin-right: 8px;
+      background: #e6eee9;
+      padding: 2px 6px;
+      border-radius: 4px;
     }
 
-    /* Реакции под статьей (Discourse Reactions) */
+    /* Реакции */
     .post-actions-bar {
       display: flex;
       align-items: center;
@@ -395,120 +476,28 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      padding: 5px 10px;
+      padding: 5px 12px;
       border-radius: 16px;
       background: var(--card-bg);
       border: 1px solid var(--border);
       font-size: 0.85rem;
       cursor: pointer;
-      user-select: none;
       transition: all 0.15s;
     }
-    .post-reaction-btn:hover {
-      background: #f4f1ea;
-      transform: translateY(-1px);
-    }
+    .post-reaction-btn:hover { background: #f4f1ea; }
     .post-reaction-btn.user-reacted {
       background: #e6eee9;
       border-color: var(--tertiary);
     }
 
-    /* Пейволл баннер */
-    .paywall-alert {
-      background: #fbf6ec;
-      border: 1px solid #ebd9b5;
-      border-left: 4px solid var(--highlight);
-      border-radius: 8px;
-      padding: 16px 20px;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-    .paywall-alert.club-active {
-      background: #f0f7f2;
-      border-color: #c3e2cb;
-      border-left-color: var(--success);
-    }
-
-    /* Настоящий видеоплеер */
-    .video-container {
-      background: #000;
-      border-radius: 8px;
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-    video {
-      width: 100%;
-      display: block;
-      max-height: 480px;
-      background: #000;
-      outline: none;
-    }
-    .player-subbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 16px;
-      background: #14110d;
-      color: #faf8f3;
-      font-size: 0.85rem;
-    }
-    .resume-badge {
-      background: var(--tertiary);
-      color: #fff;
-      padding: 4px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .resume-badge:hover { background: #26594e; }
-
-    /* Читалка и транскрипты */
-    .transcript-box {
-      background: #faf8f3;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 20px;
-      max-height: 340px;
-      overflow-y: auto;
-      font-size: 0.95rem;
-      line-height: 1.7;
-    }
-    .transcript-entry {
-      padding: 8px 12px;
-      margin-bottom: 6px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-    .transcript-entry:hover {
-      background: #eeebe3;
-    }
-    .transcript-entry.active-cue {
-      background: #ebdcae;
-      border-left: 3px solid #b78a2e;
-    }
-    .cue-time {
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: var(--tertiary);
-      font-weight: 600;
-      margin-right: 8px;
-      background: #e6eee9;
-      padding: 2px 6px;
-      border-radius: 4px;
-    }
-
-    /* Модуль чатов (Discourse Chat) */
+    /* Модуль чатов */
     .chat-layout {
       display: grid;
       grid-template-columns: 220px 1fr;
       border: 1px solid var(--border);
       border-radius: 8px;
       overflow: hidden;
-      height: 520px;
+      height: 540px;
       background: #fff;
     }
     .chat-channels {
@@ -541,7 +530,7 @@
     }
     .chat-messages {
       flex: 1;
-      padding: 16px;
+      padding: 18px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -553,8 +542,8 @@
       align-items: flex-start;
     }
     .msg-avatar {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       background: var(--tertiary);
       color: #fff;
@@ -591,7 +580,6 @@
       font-size: 0.78rem;
       border: 1px solid var(--border);
       cursor: pointer;
-      user-select: none;
     }
     .react-pill:hover { background: #e8e3d8; }
 
@@ -614,7 +602,33 @@
     }
     .chat-input:focus { border-color: var(--tertiary); }
 
-    /* Модальное окно подписки */
+    /* Список тем в разделах */
+    .topics-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .topic-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .topic-row:hover {
+      background: #fcfbfa;
+      border-color: #d1ccc0;
+      transform: translateY(-1px);
+    }
+    .topic-row-title { font-weight: 600; font-size: 1rem; color: var(--primary); }
+    .topic-row-meta { font-size: 0.8rem; color: var(--text-muted); display: flex; gap: 12px; }
+
+    /* Модальное окно */
     .modal-backdrop {
       display: none;
       position: fixed;
@@ -629,7 +643,7 @@
     .modal-card {
       background: #fff;
       width: 100%;
-      max-width: 480px;
+      max-width: 500px;
       border-radius: 10px;
       padding: 24px;
       border: 1px solid var(--border);
@@ -662,27 +676,27 @@
 </head>
 <body>
 
-  <!-- Верхняя навигация -->
+  <!-- Шапка -->
   <header>
     <div class="header-inner">
-      <a href="#" class="brand" onclick="switchMainTab('feed')">
+      <a href="javascript:void(0)" class="brand" onclick="switchCategory('journal')">
         <span>ИИ Клуб</span>
         <span class="brand-badge">Первопроходцы</span>
       </a>
 
       <nav class="header-nav">
-        <span class="header-tab active" id="tabFeed" onclick="switchMainTab('feed')">📖 Журнал и темы</span>
-        <span class="header-tab" id="tabChat" onclick="switchMainTab('chat')">💬 Чат клуба</span>
-        <span class="header-tab" id="tabAccess" onclick="togglePaywallModal()">🔑 Мой доступ</span>
+        <span class="header-tab active" id="tabFeed" onclick="switchCategory('journal')">📖 Журнал</span>
+        <span class="header-tab" id="tabChat" onclick="openChatView()">💬 Чат клуба</span>
+        <span class="header-tab" id="tabAccess" onclick="openLoginModal()">🔑 Мой доступ</span>
       </nav>
 
       <div class="user-section">
-        <button class="btn btn-outline btn-sm" onclick="togglePaywallModal()">
-          Подписка
+        <button class="btn btn-outline btn-sm" id="authBtn" onclick="openLoginModal()">
+          Войти
         </button>
-        <div class="user-badge">
-          <div class="avatar-circle">Q</div>
-          <span>QuietPanda64</span>
+        <div class="user-badge" onclick="openLoginModal()">
+          <div class="avatar-circle" id="userAvatar">S</div>
+          <span id="userNameLabel">sanohes@gmail.com</span>
         </div>
       </div>
     </div>
@@ -691,286 +705,330 @@
   <!-- Приложение -->
   <div class="app-container">
 
-    <!-- Левая колонка -->
+    <!-- Левый сайдбар разделов -->
     <aside class="sidebar">
       <div class="sidebar-block">
-        <div class="sidebar-heading">Разделы клуба</div>
+        <div class="sidebar-heading">Категории форума</div>
         <ul class="cat-menu">
-          <li><a href="javascript:void(0)" class="cat-link active" onclick="switchMainTab('feed')"><span>📖 Журнал</span> <span class="cat-pill">7</span></a></li>
-          <li><a href="javascript:void(0)" class="cat-link" onclick="togglePaywallModal()"><span>ℹ️ Доступ в клуб</span> <span class="cat-pill">1</span></a></li>
-          <li><a href="javascript:void(0)" class="cat-link locked-cat" onclick="checkAccessAlert()"><span>📢 Анонсы</span> <span class="cat-locked" id="lock1">🔒</span></a></li>
-          <li><a href="javascript:void(0)" class="cat-link locked-cat" onclick="checkAccessAlert()"><span>💡 Полезняки</span> <span class="cat-locked" id="lock2">🔒</span></a></li>
-          <li><a href="javascript:void(0)" class="cat-link locked-cat" onclick="checkAccessAlert()"><span>📝 Саммари чатов</span> <span class="cat-locked" id="lock3">🔒</span></a></li>
-          <li><a href="javascript:void(0)" class="cat-link locked-cat" onclick="checkAccessAlert()"><span>🎥 Записи эфиров</span> <span class="cat-locked" id="lock4">🔒</span></a></li>
+          <li>
+            <a href="javascript:void(0)" class="cat-link active" id="cat-journal" onclick="switchCategory('journal')">
+              <span>📖 Журнал</span> <span class="cat-pill">7</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" class="cat-link" id="cat-club-access" onclick="switchCategory('club-access')">
+              <span>ℹ️ Доступ в клуб</span> <span class="cat-pill">1</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" class="cat-link" id="cat-announcements" onclick="switchCategory('announcements')">
+              <span>📢 Анонсы</span> <span class="cat-locked" id="lock-announcements">🔒</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" class="cat-link" id="cat-resources" onclick="switchCategory('resources')">
+              <span>💡 Полезняки</span> <span class="cat-locked" id="lock-resources">🔒</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" class="cat-link" id="cat-summaries" onclick="switchCategory('summaries')">
+              <span>📝 Саммари чатов</span> <span class="cat-locked" id="lock-summaries">🔒</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" class="cat-link" id="cat-recordings" onclick="switchCategory('recordings')">
+              <span>🎥 Записи эфиров</span> <span class="cat-locked" id="lock-recordings">🔒</span>
+            </a>
+          </li>
         </ul>
       </div>
 
       <div class="sidebar-block">
-        <div class="sidebar-heading">Личные полки</div>
+        <div class="sidebar-heading">Мои полки</div>
         <ul class="cat-menu">
-          <li><a href="javascript:void(0)" class="cat-link" onclick="scrollToPlayer()"><span>📺 Смотрю: 00:04</span></a></li>
-          <li><a href="javascript:void(0)" class="cat-link" onclick="scrollToReader()"><span>📚 Читаю: 14%</span></a></li>
+          <li>
+            <a href="javascript:void(0)" class="cat-link" onclick="scrollToPlayer()">
+              <span>📺 Смотрю: 00:04</span>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)" class="cat-link" onclick="scrollToReader()">
+              <span>📚 Читаю: 14%</span>
+            </a>
+          </li>
         </ul>
       </div>
     </aside>
 
-    <!-- Основная рабочая область -->
+    <!-- Основной контент -->
     <main class="content-body">
 
-      <!-- Баннер пейволла -->
-      <div class="paywall-alert" id="statusBanner">
+      <!-- Баннер доступа -->
+      <div class="status-banner" id="statusBanner">
         <div>
-          <h4 id="bannerHeader" style="font-weight: 700; margin-bottom: 2px;">Профиль создан: подтвердите подписку</h4>
+          <h4 id="bannerHeader" style="font-weight: 700; margin-bottom: 2px;">Статус: Саночес (sanohes@gmail.com)</h4>
           <p id="bannerSub" style="font-size: 0.875rem; color: var(--text-muted);">
-            Для доступа к закрытым эфирам и чатам свяжите аккаунт школы GetCourse (edu.malovnik.ru) или подтвердите email покупки.
+            Нажмите кнопку «Активировать доступ», чтобы войти под подтвержденным аккаунтом sanohes@gmail.com и открыть все закрытые разделы.
           </p>
         </div>
-        <button class="btn btn-primary" onclick="togglePaywallModal()">
-          Подтвердить
+        <button class="btn btn-primary" id="bannerActionBtn" onclick="oneClickSanohesLogin()">
+          🔑 Активировать доступ Саночес
         </button>
       </div>
 
-      <!-- Вкладка 1: Журнал и статья с видео и PDF -->
-      <div id="viewFeed">
-        
-        <!-- Оформленная статья (Discourse Topic Post) -->
-        <article class="card" id="articleCard">
-          
-          <!-- Авторский блок поста -->
-          <div class="post-author-bar">
-            <div class="author-info">
-              <div class="author-avatar">Н</div>
-              <div>
-                <div class="author-name">
-                  <span>Никита</span>
-                  <span class="author-role">Основатель</span>
-                </div>
-                <div class="post-date">17 ноября 2026 г. · в разделе <strong>Журнал</strong></div>
-              </div>
-            </div>
-            <div class="post-stats">
-              <span>👁 1,420 просмотров</span>
-              <span>💬 28 ответов</span>
-            </div>
-          </div>
+      <!-- Контейнер экранов -->
+      <div id="screenContainer">
 
-          <!-- Заголовок темы -->
-          <h1 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 16px;">
-            Альманах обновлений №008. Работа помещается рядом
-          </h1>
-
-          <!-- Тело статьи -->
-          <div class="article-body">
-            <p>
-              Выпустили свежий восьмой номер Альманаха! В этом выпуске подробно разбираем, как изменился подход к разработке с приходом нового поколения агентов и методологии <strong>Autopilot 2.0</strong>.
-            </p>
-
-            <div class="article-quote">
-              «Обычная разработка идёт от идеи к коду. Реверс-инжиниринг идёт в обратную сторону: вы разбираете готовую программу без исходников до винтика, чтобы сделать такое же решение на чистой архитектуре.»
-            </div>
-
-            <p>Ключевые темы номера:</p>
-            <ul class="article-checklist">
-              <li><span class="check-icon">✓</span> <strong>Глубинный реверс-инжиниринг с REA:</strong> как заглядывать внутрь веб-бандлов, анализировать API и снимать рантайм-доказательства.</li>
-              <li><span class="check-icon">✓</span> <strong>Двухуровневые закладки:</strong> сохранение точных пиксельных смещений параграфов и синхронизация между устройствами.</li>
-              <li><span class="check-icon">✓</span> <strong>Медиаплеер с памятью таймкода:</strong> возобновление просмотра с секунды остановки и полка «Я смотрю и слушаю».</li>
-            </ul>
-          </div>
-
-          <!-- Настоящий рабочий HTML5 видеоплеер -->
-          <div class="video-container" id="playerSection">
-            <video id="mainVideo" controls poster="docs/screenshots/journal_topic.png">
-              <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-              Ваш браузер не поддерживает HTML5 видео.
-            </video>
-            <div class="player-subbar">
-              <span id="playerPlaybackTime">⏱ Позиция: 00:00 / 09:56</span>
-              <div style="display: flex; gap: 8px; align-items: center;">
-                <span class="resume-badge" onclick="resumeVideoFromStart()">
-                  Продолжить с 00:04
-                </span>
-                <span style="font-size: 0.8rem; color: #999;">Яндекс.Диск / MP4 HD</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Блок прикрепленного PDF файла (Раздатка и методичка) -->
-          <div class="attachment-card">
-            <div class="attachment-meta">
-              <div class="attachment-icon">PDF</div>
-              <div>
-                <div class="attachment-title">Альманах обновлений №008 — Методичка по агентам.pdf</div>
-                <div class="attachment-size">1.0 КБ · Официальный раздаточный материал выпуска</div>
-              </div>
-            </div>
-            <div style="display: flex; gap: 8px;">
-              <button class="btn btn-outline btn-sm" onclick="togglePdfViewer()">
-                📖 Читать здесь
-              </button>
-              <a href="assets/materials/almanac-008-methodology.pdf" download class="btn btn-primary btn-sm">
-                ⬇️ Скачать PDF
-              </a>
-            </div>
-          </div>
-
-          <!-- Встроенный интерактивный PDF просмотрщик -->
-          <div class="pdf-viewer-box" id="pdfViewerContainer">
-            <iframe src="assets/materials/almanac-008-methodology.pdf"></iframe>
-          </div>
-
-          <!-- Транскрипт с кликабельными таймкодами -->
-          <div style="margin-top: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-              <h3 style="font-size: 1.05rem; font-weight: 700;">Стенограмма и таймкоды выпуска:</h3>
-              <button class="btn btn-outline btn-sm" onclick="addCustomBookmark()">
-                ☆ Закладка текущей секунды
-              </button>
-            </div>
-            <div class="transcript-box" id="transcriptContainer">
-              <div class="transcript-entry active-cue" onclick="seekToSeconds(4, this)">
-                <span class="cue-time">[00:00:04]</span>
-                <strong>Никита Вельмакин:</strong> Привет всем участникам клуба! Сегодня мы подробно разбираем, как упаковывать сложные инструменты в простые решения и как автономные агенты меняют разработку.
-              </div>
-              <div class="transcript-entry" onclick="seekToSeconds(18, this)">
-                <span class="cue-time">[00:00:18]</span>
-                <strong>Никита Вельмакин:</strong> Обратите внимание на материалы: к выпуску прикреплена текстовая методичка в PDF и полный альманах в формате Markdown и EPUB.
-              </div>
-              <div class="transcript-entry" onclick="seekToSeconds(45, this)">
-                <span class="cue-time">[00:00:45]</span>
-                <strong>Разбор темы:</strong> Читалка запоминает координаты каждого блока, чтобы при возвращении не приходилось заново листать весь текст.
-              </div>
-              <div class="transcript-entry" onclick="seekToSeconds(90, this)">
-                <span class="cue-time">[00:01:30]</span>
-                <strong>Закладки:</strong> Координаты закладок синхронизируются локально и на сервере, отображаясь на полке «Я читаю».
-              </div>
-            </div>
-          </div>
-
-          <!-- Плашка реакций под статьей (Discourse Reactions) -->
-          <div class="post-actions-bar">
-            <div class="reactions-cluster">
-              <button class="post-reaction-btn" onclick="toggleReaction(this)">
-                <span>❤️</span> <span class="count">24</span>
-              </button>
-              <button class="post-reaction-btn" onclick="toggleReaction(this)">
-                <span>🔥</span> <span class="count">42</span>
-              </button>
-              <button class="post-reaction-btn" onclick="toggleReaction(this)">
-                <span>🚀</span> <span class="count">19</span>
-              </button>
-              <button class="post-reaction-btn" onclick="toggleReaction(this)">
-                <span>💡</span> <span class="count">15</span>
-              </button>
-            </div>
-            <div>
-              <button class="btn btn-outline btn-sm" onclick="addCustomBookmark()">
-                ☆ В закладки
-              </button>
-            </div>
-          </div>
-
-        </article>
-
-      </div>
-
-      <!-- Вкладка 2: Чат клуба (Discourse Chat) -->
-      <div id="viewChat" style="display: none;">
-        <section class="card" style="padding: 0;">
-          <div class="chat-layout">
-            <!-- Каналы -->
-            <div class="chat-channels">
-              <div class="sidebar-heading" style="padding: 0 4px 6px;">Каналы</div>
-              <button class="channel-btn active" onclick="switchChannel(this, 'главный')">
-                <span>#</span> главный
-              </button>
-              <button class="channel-btn" onclick="switchChannel(this, 'вопросы-и-ответы')">
-                <span>#</span> вопросы-и-ответы
-              </button>
-              <button class="channel-btn" onclick="switchChannel(this, 'разборы-кейсов')">
-                <span>#</span> разборы-кейсов
-              </button>
-              <button class="channel-btn" onclick="switchChannel(this, 'курилка')">
-                <span>#</span> курилка
-              </button>
-            </div>
-
-            <!-- Лента сообщений -->
-            <div class="chat-feed">
-              <div class="chat-messages" id="chatFeedBox">
-                <div class="message-item">
-                  <div class="msg-avatar" style="background: #183f37;">Н</div>
-                  <div class="msg-content">
-                    <div class="msg-header">
-                      <span class="msg-author">Никита</span>
-                      <span class="msg-time">10:14</span>
-                    </div>
-                    <div class="msg-text">
-                      Выложили новый Альманах №008! Проверяйте видеоплеер, PDF методичку и читалку прямо в теме.
-                    </div>
-                    <div class="msg-reactions">
-                      <span class="react-pill" onclick="addReaction(this)">🔥 12</span>
-                      <span class="react-pill" onclick="addReaction(this)">🚀 8</span>
-                      <span class="react-pill" onclick="addReaction(this)">❤️ 5</span>
-                    </div>
+        <!-- Экран 1: Статья журнала с видео и PDF -->
+        <div id="viewArticle">
+          <article class="card">
+            
+            <div class="post-author-bar">
+              <div class="author-info">
+                <div class="author-avatar">Н</div>
+                <div>
+                  <div class="author-name">
+                    <span>Никита</span>
+                    <span class="author-role">Основатель</span>
                   </div>
-                </div>
-
-                <div class="message-item">
-                  <div class="msg-avatar" style="background: #a8402c;">М</div>
-                  <div class="msg-content">
-                    <div class="msg-header">
-                      <span class="msg-author">Михаил (Куратор)</span>
-                      <span class="msg-time">10:28</span>
-                    </div>
-                    <div class="msg-text">
-                      Кстати, таймкоды кликабельны — можно сразу прыгать на нужный фрагмент в видео. И методичку можно прямо во встроенном окне читать!
-                    </div>
-                    <div class="msg-reactions">
-                      <span class="react-pill" onclick="addReaction(this)">👍 4</span>
-                    </div>
-                  </div>
+                  <div class="post-date">17 ноября 2026 г. · в разделе <strong>Журнал</strong></div>
                 </div>
               </div>
+              <div class="post-stats">
+                <span>👁 1,420 просмотров</span>
+                <span>💬 28 ответов</span>
+              </div>
+            </div>
 
-              <!-- Поле ввода -->
-              <div class="chat-input-bar">
-                <input type="text" id="chatTextInput" class="chat-input" placeholder="Написать в #главный... (Enter для отправки)" onkeydown="handleChatKey(event)">
-                <button class="btn btn-primary btn-sm" onclick="sendChatMessage()">
-                  Отправить
+            <h1 style="font-size: 1.6rem; font-weight: 800; letter-spacing: -0.025em; margin-bottom: 16px;">
+              Альманах обновлений №008. Работа помещается рядом
+            </h1>
+
+            <div class="article-body">
+              <p>
+                Выпустили свежий восьмой номер Альманаха! В этом выпуске подробно разбираем, как изменился подход к разработке с приходом нового поколения агентов и методологии <strong>Autopilot 2.0</strong>.
+              </p>
+
+              <div class="article-quote">
+                «Обычная разработка идёт от идеи к коду. Реверс-инжиниринг идёт в обратную сторону: вы разбираете готовую программу без исходников до винтика, чтобы сделать такое же решение на чистой архитектуре.»
+              </div>
+
+              <p>Ключевые темы выпуска:</p>
+              <ul class="article-checklist">
+                <li><span class="check-icon">✓</span> <strong>Глубинный реверс-инжиниринг с REA:</strong> как заглядывать внутрь веб-бандлов, анализировать API и снимать доказательства рантайма.</li>
+                <li><span class="check-icon">✓</span> <strong>Двухуровневые закладки:</strong> сохранение точных пиксельных смещений параграфов и синхронизация между устройствами.</li>
+                <li><span class="check-icon">✓</span> <strong>Медиаплеер с памятью таймкода:</strong> возобновление просмотра с секунды остановки и полка «Я смотрю и слушаю».</li>
+              </ul>
+            </div>
+
+            <!-- Видеоплеер (Настоящее воспроизведение) -->
+            <div class="video-wrapper" id="playerAnchor">
+              <video id="clubVideo" controls preload="metadata" playsinline>
+                <source src="https://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+                Ваш браузер не поддерживает встроенное видео.
+              </video>
+              <div class="player-dock">
+                <span id="videoTimeStatus">⏱ 00:00 / 00:46</span>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <button class="dock-btn" onclick="seekVideoExact(4)">
+                    ▶️ Начать с 00:04
+                  </button>
+                  <span style="font-size: 0.8rem; color: #aaa;">Источник: Яндекс.Диск / MP4 HD</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Блок прикрепленного PDF файла -->
+            <div class="attachment-card">
+              <div class="attachment-meta">
+                <div class="attachment-icon">PDF</div>
+                <div>
+                  <div style="font-weight: 700; font-size: 0.95rem;">Альманах обновлений №008 — Методичка по агентам.pdf</div>
+                  <div style="font-size: 0.8rem; color: var(--text-muted);">1.0 КБ · Официальный раздаточный материал выпуска</div>
+                </div>
+              </div>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-outline btn-sm" onclick="togglePdfFrame()">
+                  📖 Читать здесь
+                </button>
+                <a href="assets/materials/almanac-008-methodology.pdf" download class="btn btn-primary btn-sm">
+                  ⬇️ Скачать PDF
+                </a>
+              </div>
+            </div>
+
+            <!-- Встроенный фрейм чтения PDF -->
+            <div class="pdf-viewer-frame" id="pdfFrame">
+              <iframe src="assets/materials/almanac-008-methodology.pdf"></iframe>
+            </div>
+
+            <!-- Транскрипт с кликабельными таймкодами -->
+            <div style="margin-top: 24px;" id="readerAnchor">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h3 style="font-size: 1.05rem; font-weight: 700;">Стенограмма эфира и таймкоды:</h3>
+                <button class="btn btn-outline btn-sm" onclick="saveBookmarkFromVideo()">
+                  ☆ Закладка текущей секунды
+                </button>
+              </div>
+              <div class="transcript-box">
+                <div class="transcript-entry active-cue" onclick="seekVideoExact(4, this)">
+                  <span class="cue-time">[00:00:04]</span>
+                  <strong>Никита Вельмакин:</strong> Привет всем участникам клуба! Сегодня подробно разбираем, как упаковывать сложные инструменты в простые решения и как автономные агенты меняют подход к коду.
+                </div>
+                <div class="transcript-entry" onclick="seekVideoExact(15, this)">
+                  <span class="cue-time">[00:00:15]</span>
+                  <strong>Никита Вельмакин:</strong> Обратите внимание на материалы: к выпуску прикреплена текстовая методичка в PDF и полный альманах в формате Markdown и EPUB.
+                </div>
+                <div class="transcript-entry" onclick="seekVideoExact(28, this)">
+                  <span class="cue-time">[00:00:28]</span>
+                  <strong>Разбор темы:</strong> Читалка запоминает координаты каждого блока, чтобы при возвращении не приходилось заново листать весь текст.
+                </div>
+                <div class="transcript-entry" onclick="seekVideoExact(38, this)">
+                  <span class="cue-time">[00:00:38]</span>
+                  <strong>Закладки:</strong> Координаты закладок синхронизируются локально и на сервере, отображаясь на полке «Я читаю».
+                </div>
+              </div>
+            </div>
+
+            <!-- Реакции под статьей -->
+            <div class="post-actions-bar">
+              <div class="reactions-cluster">
+                <button class="post-reaction-btn" onclick="toggleReaction(this)">
+                  <span>❤️</span> <span class="count">24</span>
+                </button>
+                <button class="post-reaction-btn" onclick="toggleReaction(this)">
+                  <span>🔥</span> <span class="count">42</span>
+                </button>
+                <button class="post-reaction-btn" onclick="toggleReaction(this)">
+                  <span>🚀</span> <span class="count">19</span>
+                </button>
+                <button class="post-reaction-btn" onclick="toggleReaction(this)">
+                  <span>💡</span> <span class="count">15</span>
+                </button>
+              </div>
+              <div>
+                <button class="btn btn-outline btn-sm" onclick="saveBookmarkFromVideo()">
+                  ☆ В закладки
                 </button>
               </div>
             </div>
+
+          </article>
+        </div>
+
+        <!-- Экран 2: Разделы форума (Анонсы, Полезняки, Эфиры, Саммари) -->
+        <div id="viewCategoryFeed" style="display: none;">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title" id="categoryTitle">Записи эфиров</h2>
+              <span class="btn btn-sm btn-outline" onclick="switchCategory('journal')">← Назад в Журнал</span>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;" id="categoryDesc">
+              Архив прошедших вебинаров, воркшопов и разборов для участников клуба.
+            </p>
+            <ul class="topics-list" id="categoryTopicsList">
+              <!-- Динамически заполняется -->
+            </ul>
           </div>
-        </section>
+        </div>
+
+        <!-- Экран 3: Чат клуба (Discourse Chat) -->
+        <div id="viewChat" style="display: none;">
+          <section class="card" style="padding: 0;">
+            <div class="chat-layout">
+              <div class="chat-channels">
+                <div class="sidebar-heading" style="padding: 0 4px 6px;">Каналы</div>
+                <button class="channel-btn active" onclick="switchChannel(this, 'главный')">
+                  <span>#</span> главный
+                </button>
+                <button class="channel-btn" onclick="switchChannel(this, 'вопросы-и-ответы')">
+                  <span>#</span> вопросы-и-ответы
+                </button>
+                <button class="channel-btn" onclick="switchChannel(this, 'разборы-кейсов')">
+                  <span>#</span> разборы-кейсов
+                </button>
+                <button class="channel-btn" onclick="switchChannel(this, 'курилка')">
+                  <span>#</span> курилка
+                </button>
+              </div>
+
+              <div class="chat-feed">
+                <div class="chat-messages" id="chatFeedBox">
+                  <div class="message-item">
+                    <div class="msg-avatar" style="background: #183f37;">Н</div>
+                    <div class="msg-content">
+                      <div class="msg-header">
+                        <span class="msg-author">Никита</span>
+                        <span class="msg-time">10:14</span>
+                      </div>
+                      <div class="msg-text">
+                        Выложили Альманах №008! Проверяйте видеоплеер, методичку в PDF и транскрипт прямо в теме.
+                      </div>
+                      <div class="msg-reactions">
+                        <span class="react-pill" onclick="addReaction(this)">🔥 12</span>
+                        <span class="react-pill" onclick="addReaction(this)">🚀 8</span>
+                        <span class="react-pill" onclick="addReaction(this)">❤️ 5</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="message-item">
+                    <div class="msg-avatar" style="background: #a8402c;">М</div>
+                    <div class="msg-content">
+                      <div class="msg-header">
+                        <span class="msg-author">Михаил (Куратор)</span>
+                        <span class="msg-time">10:28</span>
+                      </div>
+                      <div class="msg-text">
+                        Привет! Таймкоды в тексте кликабельны — перемотка видео срабатывает моментально.
+                      </div>
+                      <div class="msg-reactions">
+                        <span class="react-pill" onclick="addReaction(this)">👍 4</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="chat-input-bar">
+                  <input type="text" id="chatTextInput" class="chat-input" placeholder="Написать в #главный... (Enter для отправки)" onkeydown="handleChatKey(event)">
+                  <button class="btn btn-primary btn-sm" onclick="sendChatMessage()">
+                    Отправить
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
       </div>
 
     </main>
   </div>
 
-  <!-- Модалка доступа в клуб -->
-  <div class="modal-backdrop" id="paywallModal">
+  <!-- Модальное окно входа / активации Саночес -->
+  <div class="modal-backdrop" id="loginModal">
     <div class="modal-card">
       <div class="modal-header">
         <h3 style="font-size: 1.15rem; font-weight: 700;">Мой доступ в клуб</h3>
-        <button class="modal-close" onclick="togglePaywallModal()">&times;</button>
+        <button class="modal-close" onclick="closeLoginModal()">&times;</button>
       </div>
 
-      <div style="margin-bottom: 16px;">
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">
-          Для верификации введите email, на который оформлена подписка в школе:
+      <div style="background: #fbf9f4; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 18px;">
+        <div style="font-weight: 700; margin-bottom: 4px;">Быстрый вход для Саночес:</div>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+          Ваш аккаунт <strong>sanohes@gmail.com</strong> уже внесён в базу подтверждённых участников. Нажмите кнопку ниже для моментальной активации всех прав:
         </p>
-        <input type="email" id="inputEmail" value="sanohes@gmail.com" class="chat-input" style="width: 100%; margin-bottom: 12px;">
-        <button class="btn btn-primary" style="width: 100%;" onclick="activateClubAccess()">
-          Активировать подписку (Демо-переключатель)
+        <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="oneClickSanohesLogin()">
+          ✅ Войти как sanohes@gmail.com (Открыть все разделы)
         </button>
       </div>
 
       <div style="border-top: 1px solid var(--border); padding-top: 14px; text-align: center;">
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">
-          Либо авторизуйтесь напрямую через аккаунт GetCourse:
+          Или войти через внешнюю школу GetCourse:
         </p>
         <a href="https://edu.malovnik.ru" target="_blank" class="btn btn-outline btn-sm">
-          Войти через edu.malovnik.ru
+          Авторизация через edu.malovnik.ru
         </a>
       </div>
     </div>
@@ -983,95 +1041,235 @@
   </footer>
 
   <script>
-    let isSubscribed = false;
-    const video = document.getElementById('mainVideo');
-    const timeDisplay = document.getElementById('playerPlaybackTime');
+    // База данных категорий и тем
+    const categoryData = {
+      announcements: {
+        title: "📢 Анонсы",
+        desc: "Анонсы ближайших эфиров, мастер-классов и клубных мероприятий.",
+        topics: [
+          { title: "Эфир в четверг: Разбор автономных агентов и практические кейсы", author: "Никита", date: "Вчера", views: 450, replies: 18 },
+          { title: "Встреча клуба в Zoom: Сессия ответов на вопросы участников", author: "Михаил", date: "3 дня назад", views: 820, replies: 34 }
+        ]
+      },
+      resources: {
+        title: "💡 Полезняки",
+        desc: "Промпты, шаблоны, инструкции и проверенные инструменты участников.",
+        topics: [
+          { title: "Пак проверенных системных промптов для Claude 3.5 Sonnet", author: "Никита", date: "15 ноября", views: 1280, replies: 42 },
+          { title: "Скрипты автоматизации с Autopilot 2.0 и REA", author: "Иван (sanohes)", date: "12 ноября", views: 940, replies: 19 },
+          { title: "Шпаргалка по реверс-инжинирингу веб-приложений", author: "Михаил", date: "10 ноября", views: 1540, replies: 56 }
+        ]
+      },
+      summaries: {
+        title: "📝 Саммари чатов",
+        desc: "Выжимки и ключевые инсайты из тематических чатов сообщества.",
+        topics: [
+          { title: "Саммари за неделю: 10 лучших инструментов недели из чата #нейросети", author: "Куратор", date: "16 ноября", views: 670, replies: 12 },
+          { title: "Дайджест обсуждений: Как настраивать MCP серверы", author: "Куратор", date: "9 ноября", views: 890, replies: 15 }
+        ]
+      },
+      recordings: {
+        title: "🎥 Записи эфиров",
+        desc: "Архив прошедших вебинаров, воркшопов и разборов для участников клуба.",
+        topics: [
+          { title: "Один фокус — целый год (Запись эфира 7 ноября)", author: "Никита", date: "7 ноября", views: 2310, replies: 88, isVideo: true },
+          { title: "Воркшоп: Сборка приложений кодом без разработчиков", author: "Никита", date: "31 октября", views: 1980, replies: 64, isVideo: true },
+          { title: "Разбор архитектуры REA и рентген чужих сервисов", author: "Никита", date: "24 октября", views: 1750, replies: 51, isVideo: true }
+        ]
+      }
+    };
 
-    // Отслеживание времени видео
-    video.addEventListener('timeupdate', () => {
-      const cur = Math.floor(video.currentTime);
-      const dur = Math.floor(video.duration || 596);
-      const curM = String(Math.floor(cur / 60)).padStart(2, '0');
-      const curS = String(cur % 60).padStart(2, '0');
-      const durM = String(Math.floor(dur / 60)).padStart(2, '0');
-      const durS = String(dur % 60).padStart(2, '0');
-      timeDisplay.textContent = `⏱ Позиция: ${curM}:${curS} / ${durM}:${durS}`;
-      localStorage.setItem('iiclub_video_pos', cur);
+    // Состояние подписки
+    let isSubscribed = localStorage.getItem('iiclub_subscribed') === 'true';
+    const video = document.getElementById('clubVideo');
+    const timeDisplay = document.getElementById('videoTimeStatus');
+
+    // Инициализация при загрузке
+    window.addEventListener('DOMContentLoaded', () => {
+      updateSubscriptionUI();
+      initVideoTracking();
     });
 
-    function resumeVideoFromStart() {
-      video.currentTime = 4;
-      video.play();
+    function initVideoTracking() {
+      if (!video) return;
+      video.addEventListener('timeupdate', () => {
+        const cur = Math.floor(video.currentTime);
+        const dur = Math.floor(video.duration || 46);
+        const curM = String(Math.floor(cur / 60)).padStart(2, '0');
+        const curS = String(cur % 60).padStart(2, '0');
+        const durM = String(Math.floor(dur / 60)).padStart(2, '0');
+        const durS = String(dur % 60).padStart(2, '0');
+        timeDisplay.textContent = `⏱ ${curM}:${curS} / ${durM}:${durS}`;
+      });
     }
 
-    function seekToSeconds(sec, element) {
+    function oneClickSanohesLogin() {
+      isSubscribed = true;
+      localStorage.setItem('iiclub_subscribed', 'true');
+      localStorage.setItem('iiclub_user', 'sanohes@gmail.com');
+      updateSubscriptionUI();
+      closeLoginModal();
+      alert('Успешно! Вы вошли как sanohes@gmail.com. Действующая подписка клуба активирована. Все закрытые разделы и видео доступны!');
+    }
+
+    function updateSubscriptionUI() {
+      const banner = document.getElementById('statusBanner');
+      const header = document.getElementById('bannerHeader');
+      const sub = document.getElementById('bannerSub');
+      const actionBtn = document.getElementById('bannerActionBtn');
+      const authBtn = document.getElementById('authBtn');
+      const userNameLabel = document.getElementById('userNameLabel');
+
+      const locks = ['announcements', 'resources', 'summaries', 'recordings'];
+
+      if (isSubscribed) {
+        banner.classList.add('club-active');
+        header.textContent = '✅ Подписка Саночес активна (sanohes@gmail.com)';
+        sub.textContent = 'Участник клуба: полный доступ к закрытым эфирам, полезнякам, саммари и чатам открыт до 17 декабря 2026.';
+        actionBtn.textContent = '✅ Доступ активен';
+        actionBtn.className = 'btn btn-success btn-sm';
+        actionBtn.onclick = () => alert('Ваша подписка активна! Вы можете открывать любые разделы в левом меню.');
+        authBtn.textContent = 'Выйти';
+        authBtn.onclick = logoutUser;
+        userNameLabel.textContent = 'sanohes@gmail.com (Клуб)';
+
+        locks.forEach(id => {
+          const el = document.getElementById('lock-' + id);
+          if (el) el.textContent = '🔓';
+        });
+      } else {
+        banner.classList.remove('club-active');
+        header.textContent = 'Статус: Саночес (sanohes@gmail.com)';
+        sub.textContent = 'Нажмите «Активировать доступ», чтобы открыть все закрытые разделы клуба.';
+        actionBtn.textContent = '🔑 Активировать доступ Саночес';
+        actionBtn.className = 'btn btn-primary';
+        actionBtn.onclick = oneClickSanohesLogin;
+        authBtn.textContent = 'Войти';
+        authBtn.onclick = openLoginModal;
+        userNameLabel.textContent = 'sanohes@gmail.com';
+
+        locks.forEach(id => {
+          const el = document.getElementById('lock-' + id);
+          if (el) el.textContent = '🔒';
+        });
+      }
+    }
+
+    function logoutUser() {
+      isSubscribed = false;
+      localStorage.removeItem('iiclub_subscribed');
+      updateSubscriptionUI();
+      switchCategory('journal');
+      alert('Вы вышли из учетной записи.');
+    }
+
+    // Переключение разделов форума
+    function switchCategory(catKey) {
+      document.querySelectorAll('.cat-link').forEach(el => el.classList.remove('active'));
+      const activeCat = document.getElementById('cat-' + catKey);
+      if (activeCat) activeCat.classList.add('active');
+
+      document.getElementById('tabFeed').classList.toggle('active', catKey === 'journal');
+      document.getElementById('tabChat').classList.remove('active');
+
+      if (catKey === 'journal') {
+        document.getElementById('viewArticle').style.display = 'block';
+        document.getElementById('viewCategoryFeed').style.display = 'none';
+        document.getElementById('viewChat').style.display = 'none';
+        return;
+      }
+
+      if (catKey === 'club-access') {
+        openLoginModal();
+        return;
+      }
+
+      // Проверка доступа
+      if (!isSubscribed) {
+        alert('Этот раздел («' + catKey + '») доступен только подтвержденным участникам клуба. Нажмите «Активировать доступ Саночес»!');
+        openLoginModal();
+        return;
+      }
+
+      // Отображение закрытого раздела
+      const cat = categoryData[catKey];
+      if (!cat) return;
+
+      document.getElementById('viewArticle').style.display = 'none';
+      document.getElementById('viewChat').style.display = 'none';
+      document.getElementById('viewCategoryFeed').style.display = 'block';
+
+      document.getElementById('categoryTitle').textContent = cat.title;
+      document.getElementById('categoryDesc').textContent = cat.desc;
+
+      const list = document.getElementById('categoryTopicsList');
+      list.innerHTML = '';
+      cat.topics.forEach(t => {
+        const li = document.createElement('li');
+        li.className = 'topic-row';
+        li.innerHTML = `
+          <div>
+            <div class="topic-row-title">${t.isVideo ? '🎥 ' : '📄 '} ${t.title}</div>
+            <div class="topic-row-meta">
+              <span>Автор: <strong>${t.author}</strong></span>
+              <span>${t.date}</span>
+            </div>
+          </div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);">
+            👁 ${t.views} · 💬 ${t.replies}
+          </div>
+        `;
+        li.onclick = () => {
+          switchCategory('journal');
+          alert('Открыта тема: ' + t.title);
+        };
+        list.appendChild(li);
+      });
+    }
+
+    function openChatView() {
+      if (!isSubscribed) {
+        alert('Чат клуба доступен участникам с подтвержденной подпиской. Активируйте доступ Саночес!');
+        openLoginModal();
+        return;
+      }
+      document.querySelectorAll('.cat-link').forEach(el => el.classList.remove('active'));
+      document.getElementById('tabFeed').classList.remove('active');
+      document.getElementById('tabChat').classList.add('active');
+
+      document.getElementById('viewArticle').style.display = 'none';
+      document.getElementById('viewCategoryFeed').style.display = 'none';
+      document.getElementById('viewChat').style.display = 'block';
+    }
+
+    // Видео управление
+    function seekVideoExact(sec, element) {
+      if (!video) return;
       video.currentTime = sec;
-      video.play();
+      video.play().catch(e => console.log('Autoplay handled:', e));
       document.querySelectorAll('.transcript-entry').forEach(el => el.classList.remove('active-cue'));
       if (element) element.classList.add('active-cue');
       scrollToPlayer();
     }
 
     function scrollToPlayer() {
-      document.getElementById('playerSection').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('playerAnchor').scrollIntoView({ behavior: 'smooth' });
     }
 
     function scrollToReader() {
-      document.getElementById('readerSection').scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('readerAnchor').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function togglePdfViewer() {
-      const box = document.getElementById('pdfViewerContainer');
-      box.classList.toggle('open');
+    function togglePdfFrame() {
+      const frame = document.getElementById('pdfFrame');
+      frame.classList.toggle('open');
     }
 
-    function switchMainTab(tab) {
-      document.getElementById('tabFeed').classList.toggle('active', tab === 'feed');
-      document.getElementById('tabChat').classList.toggle('active', tab === 'chat');
-      document.getElementById('viewFeed').style.display = tab === 'feed' ? 'block' : 'none';
-      document.getElementById('viewChat').style.display = tab === 'chat' ? 'block' : 'none';
-    }
-
-    function togglePaywallModal() {
-      document.getElementById('paywallModal').classList.toggle('open');
-    }
-
-    function activateClubAccess() {
-      isSubscribed = !isSubscribed;
-      const banner = document.getElementById('statusBanner');
-      const header = document.getElementById('bannerHeader');
-      const sub = document.getElementById('bannerSub');
-      const locks = [document.getElementById('lock1'), document.getElementById('lock2'), document.getElementById('lock3'), document.getElementById('lock4')];
-
-      if (isSubscribed) {
-        banner.classList.add('club-active');
-        header.textContent = '✅ Подписка подтверждена (Действует до 17 декабря 2026)';
-        sub.textContent = 'Участник клуба: доступ ко всем закрытым эфирам, саммари и чатам открыт.';
-        locks.forEach(l => l.textContent = '🔓');
-        alert('Подписка активирована! Доступ к закрытым категориям открыт.');
-      } else {
-        banner.classList.remove('club-active');
-        header.textContent = 'Профиль создан: подтвердите подписку';
-        sub.textContent = 'Для доступа к закрытым эфирам и чатам свяжите аккаунт школы или подтвердите email покупки.';
-        locks.forEach(l => l.textContent = '🔒');
-      }
-      togglePaywallModal();
-    }
-
-    function checkAccessAlert() {
-      if (!isSubscribed) {
-        alert('Этот раздел доступен только участникам клуба с активной подпиской. Нажмите «Подтвердить», чтобы активировать.');
-        togglePaywallModal();
-      } else {
-        alert('Раздел открыт! Доступ предоставлен.');
-      }
-    }
-
-    function addCustomBookmark() {
-      const curTime = Math.floor(video.currentTime);
-      const m = String(Math.floor(curTime / 60)).padStart(2, '0');
-      const s = String(curTime % 60).padStart(2, '0');
-      alert(`☆ Закладка сохранена на отметке ${m}:${s} и привязана к аккаунту QuietPanda64!`);
+    function saveBookmarkFromVideo() {
+      const cur = Math.floor(video.currentTime || 4);
+      const m = String(Math.floor(cur / 60)).padStart(2, '0');
+      const s = String(cur % 60).padStart(2, '0');
+      alert(`☆ Закладка на отметке ${m}:${s} успешно сохранена в профиль sanohes@gmail.com!`);
     }
 
     function toggleReaction(btn) {
@@ -1080,6 +1278,14 @@
       let val = parseInt(countEl.textContent, 10);
       val = btn.classList.contains('user-reacted') ? val + 1 : val - 1;
       countEl.textContent = val;
+    }
+
+    // Модальное окно
+    function openLoginModal() {
+      document.getElementById('loginModal').classList.add('open');
+    }
+    function closeLoginModal() {
+      document.getElementById('loginModal').classList.remove('open');
     }
 
     // Чат
@@ -1096,10 +1302,10 @@
       const item = document.createElement('div');
       item.className = 'message-item';
       item.innerHTML = `
-        <div class="msg-avatar" style="background: #a88e4f;">Q</div>
+        <div class="msg-avatar" style="background: #a88e4f;">S</div>
         <div class="msg-content">
           <div class="msg-header">
-            <span class="msg-author">QuietPanda64 (Иван)</span>
+            <span class="msg-author">sanohes (Иван)</span>
             <span class="msg-time">сейчас</span>
           </div>
           <div class="msg-text">${text}</div>
@@ -1112,7 +1318,6 @@
       input.value = '';
       feed.scrollTop = feed.scrollHeight;
 
-      // Автоответ куратора через 1.5 секунды
       setTimeout(() => {
         const replyItem = document.createElement('div');
         replyItem.className = 'message-item';
@@ -1123,15 +1328,15 @@
               <span class="msg-author">Михаил (Куратор)</span>
               <span class="msg-time">только что</span>
             </div>
-            <div class="msg-text">Принято в работу! Если возникнут вопросы по методичке или видео, пиши сюда в чат.</div>
+            <div class="msg-text">Отлично, вижу сообщение! Доступ у тебя подтвержден, все материалы открыты.</div>
             <div class="msg-reactions">
-              <span class="react-pill" onclick="addReaction(this)">❤️ 1</span>
+              <span class="react-pill" onclick="addReaction(this)">🔥 1</span>
             </div>
           </div>
         `;
         feed.appendChild(replyItem);
         feed.scrollTop = feed.scrollHeight;
-      }, 1500);
+      }, 1200);
     }
 
     function addReaction(el) {
