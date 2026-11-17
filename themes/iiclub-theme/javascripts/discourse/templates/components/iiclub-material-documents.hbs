@@ -1,0 +1,16 @@
+<div class="iiclub-material-documents-list">
+  {{#each this.categorizedDocuments as |doc|}}
+    <div class="iiclub-document-item {{doc.kind}}">
+      <span class="iiclub-doc-badge">{{doc.label}}</span>
+      <span class="iiclub-doc-name">{{doc.original_filename}}</span>
+      {{#if doc.isReadable}}
+        <a href={{doc.readerUrl}} target="_blank" class="btn btn-default btn-small iiclub-read-btn">
+          {{d-icon "book-open"}} Читать здесь
+        </a>
+      {{/if}}
+      <a href={{doc.url}} download class="btn btn-flat btn-small">
+        {{d-icon "download"}}
+      </a>
+    </div>
+  {{/each}}
+</div>

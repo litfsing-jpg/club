@@ -1,0 +1,22 @@
+{
+  "name": "ИИ Клуб (Первопроходцы) Theme",
+  "authors": "Antigravity Team",
+  "version": "1.0.0",
+  "license_url": null,
+  "about_url": null,
+  "theme_version": "2.8.0",
+  "color_schemes": {
+    "ИИ Клуб": {
+      "primary": "222222",
+      "secondary": "ffffff",
+      "tertiary": "0088cc",
+      "quaternary": "e45735",
+      "header_background": "ffffff",
+      "header_primary": "222222",
+      "highlight": "ffff4d",
+      "danger": "e45735",
+      "success": "009900",
+      "love": "fa6c8d"
+    }
+  }
+}
