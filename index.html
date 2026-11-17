@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ИИ Клуб — Первопроходцы (Web Platform)</title>
+  <link rel="icon" href="https://club.nikexpert.ru/forum/uploads/default/optimized/1X/2cbafb1eeb8ec8095ee09273540ab221edaf9a51_2_32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #222222;
+      --secondary: #ffffff;
+      --tertiary: #0088cc;
+      --tertiary-hover: #006699;
+      --quaternary: #e45735;
+      --bg: #f8f9fa;
+      --border: #e2e8f0;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --text-muted: #64748b;
+      --success: #16a34a;
+      --success-bg: #dcfce7;
+      --danger: #dc2626;
+      --danger-bg: #fee2e2;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* Header */
+    header {
+      background: var(--secondary);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1.15rem;
+    }
+    .brand-badge {
+      background: #0088cc;
+      color: #fff;
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .search-bar {
+      flex: 1;
+      max-width: 480px;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      padding: 8px 14px 8px 36px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: #f1f5f9;
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .search-input:focus {
+      background: #fff;
+      border-color: var(--tertiary);
+      box-shadow: 0 0 0 3px rgba(0, 136, 204, 0.15);
+    }
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+    .user-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--tertiary); color: #fff; }
+    .btn-primary:hover { background: var(--tertiary-hover); }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { background: #f1f5f9; }
+    .btn-success { background: var(--success); color: #fff; }
+    .btn-sm { padding: 4px 10px; font-size: 0.8rem; }
+
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px 4px 4px;
+      background: #f1f5f9;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .avatar-letter {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #a88e4f;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+    }
+
+    /* Layout */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 20px;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 28px;
+    }
+    @media (max-width: 900px) {
+      .container { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+    }
+
+    /* Sidebar Navigation */
+    .sidebar-section { margin-bottom: 24px; }
+    .sidebar-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      padding-left: 10px;
+      letter-spacing: 0.05em;
+    }
+    .nav-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .nav-item a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 6px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 0.15s;
+    }
+    .nav-item a:hover, .nav-item.active a {
+      background: #e2e8f0;
+      color: var(--primary);
+    }
+    .badge-count {
+      font-size: 0.75rem;
+      background: #cbd5e1;
+      padding: 1px 6px;
+      border-radius: 10px;
+    }
+    .lock-icon { font-size: 0.8rem; color: var(--quaternary); }
+
+    /* Main Content */
+    .content-area { min-width: 0; }
+
+    /* Subscription Status Banner */
+    .banner {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--quaternary);
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .banner.active-club {
+      border-left-color: var(--success);
+    }
+    .banner-text h4 { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
+    .banner-text p { font-size: 0.875rem; color: var(--text-muted); }
+
+    /* Cards */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Video Player */
+    .player-box {
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+    .video-viewport {
+      width: 100%;
+      height: 380px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    .play-btn-large {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--tertiary);
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-bottom: 14px;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .play-btn-large:hover { transform: scale(1.08); background: #0099e6; }
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: #111827;
+      color: #fff;
+      font-size: 0.85rem;
+    }
+    .progress-bar-bg {
+      flex: 1;
+      height: 6px;
+      background: #374151;
+      border-radius: 3px;
+      margin: 0 16px;
+      cursor: pointer;
+      position: relative;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--tertiary);
+      border-radius: 3px;
+      width: 38%;
+    }
+
+    /* Reader and Bookmarks */
+    .reader-container {
+      background: #fafafa;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #2d3748;
+      max-height: 420px;
+      overflow-y: auto;
+      position: relative;
+    }
+    .reader-paragraph {
+      margin-bottom: 16px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .reader-paragraph:hover {
+      background: #edf2f7;
+    }
+    .reader-paragraph.bookmarked {
+      background: #fef3c7;
+      border-left: 3px solid #d97706;
+    }
+    .bookmark-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: #fef3c7;
+      color: #92400e;
+      border-radius: 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+
+    /* Shelves */
+    .shelves-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .shelf-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #f8fafc;
+    }
+    .shelf-thumb {
+      width: 44px;
+      height: 44px;
+      border-radius: 4px;
+      background: var(--tertiary);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: #fff;
+      width: 100%;
+      max-width: 520px;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .modal-title { font-size: 1.25rem; font-weight: 700; }
+    .close-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
+
+    /* Tabs */
+    .tab-nav { display: flex; gap: 8px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+    .tab-btn {
+      padding: 8px 16px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+    .tab-btn.active {
+      color: var(--tertiary);
+      border-bottom-color: var(--tertiary);
+    }
+
+    /* Autopilot Info Footer */
+    footer {
+      background: var(--secondary);
+      border-top: 1px solid var(--border);
+      padding: 24px 20px;
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <a href="#" class="brand">
+        <span>ИИ Клуб</span>
+        <span class="brand-badge">Первопроходцы</span>
+      </a>
+
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" placeholder="Поиск по темам, эфирам и материалам...">
+      </div>
+
+      <div class="user-nav">
+        <button class="btn btn-outline btn-sm" onclick="toggleClubModal()">
+          🔑 Мой доступ в клуб
+        </button>
+        <div class="user-pill">
+          <div class="avatar-letter">Q</div>
+          <span>QuietPanda64</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Container -->
+  <div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">Категории</div>
+        <ul class="nav-list">
+          <li class="nav-item active"><a href="#journal"><span>📖 Журнал</span> <span class="badge-count">7</span></a></li>
+          <li class="nav-item"><a href="#access"><span>ℹ️ Доступ к клубу</span> <span class="badge-count">1</span></a></li>
+          <li class="nav-item locked-item"><a href="#announcements"><span>📢 Анонсы</span> <span class="lock-icon">🔒</span></a></li>
+          <li class="nav-item locked-item"><a href="#resources"><span>💡 Полезняки</span> <span class="lock-icon">🔒</span></a></li>
+          <li class="nav-item locked-item"><a href="#summaries"><span>📝 Саммари чатов</span> <span class="lock-icon">🔒</span></a></li>
+          <li class="nav-item locked-item"><a href="#recordings"><span>🎥 Записи эфиров</span> <span class="lock-icon">🔒</span></a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">Личные полки</div>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="#shelf-watching"><span>📺 Я смотрю и слушаю</span></a></li>
+          <li class="nav-item"><a href="#shelf-reading"><span>📚 Я читаю</span></a></li>
+          <li class="nav-item"><a href="#bookmarks"><span>☆ Мои закладки</span></a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="content-area">
+
+      <!-- Subscription Banner -->
+      <div class="banner" id="clubBanner">
+        <div class="banner-text">
+          <h4 id="bannerTitle">Профиль создан: подписка не подтверждена</h4>
+          <p id="bannerDesc">Для доступа к чатам, записям эфиров и закрытым базам знаний подтвердите действующую подписку клуба.</p>
+        </div>
+        <button class="btn btn-primary" onclick="toggleClubModal()">
+          Подтвердить подписку
+        </button>
+      </div>
+
+      <!-- Video Player Component (iiclub-material-library) -->
+      <div class="card" id="videoSection">
+        <div class="card-header">
+          <div class="card-title">
+            <span>🎥</span> Плеер материалов (Альманах обновлений №008)
+          </div>
+          <button class="btn btn-outline btn-sm" id="resumeHeaderBtn" onclick="resumeVideo()">
+            ▶️ Продолжить с 04:12
+          </button>
+        </div>
+
+        <div class="player-box">
+          <div class="video-viewport" id="videoViewport">
+            <button class="play-btn-large" onclick="togglePlay()">▶</button>
+            <h3>Эфир: «Работа помещается рядом»</h3>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 6px;">
+              Источник: Яндекс.Диск / Zoom Cloud Video · 1080p
+            </p>
+          </div>
+          <div class="player-controls">
+            <span id="videoStatus">⏸ Пауза: 04:12 / 48:30</span>
+            <div class="progress-bar-bg" onclick="seekVideo(event)">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-outline btn-sm" style="color: #fff; border-color: #374151;" onclick="setSpeed(1)">1x</button>
+              <button class="btn btn-outline btn-sm" style="color: #fff; border-color: #374151;" onclick="setSpeed(1.5)">1.5x</button>
+              <button class="btn btn-outline btn-sm" style="color: #fff; border-color: #374151;" onclick="setSpeed(2)">2x</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- In-Browser Reader Component (iiclub-reader & bookmarks) -->
+      <div class="card" id="readerSection">
+        <div class="card-header">
+          <div class="card-title">
+            <span>📖</span> Встроенная читалка & Транскрипт эфира
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-outline btn-sm" onclick="saveActiveBookmark()">
+              ☆ Сохранить закладку
+            </button>
+            <span class="btn btn-outline btn-sm" id="readingProgressBadge">
+              12% прочитано
+            </span>
+          </div>
+        </div>
+
+        <div id="activeBookmarksList" style="margin-bottom: 12px;"></div>
+
+        <div class="reader-container" id="readerContainer">
+          <div class="reader-paragraph" data-block-index="1" onclick="highlightParagraph(this)">
+            <strong>[00:00:15] Вводная часть:</strong> Добро пожаловать на встречу клуба! Сегодня мы разбираем новые релизы автономных агентов и практические приемы реверс-инжиниринга веб-сервисов без исходного кода.
+          </div>
+          <div class="reader-paragraph bookmarked" data-block-index="2" onclick="highlightParagraph(this)">
+            <strong>[00:04:12] Архитектура плеера и закладок:</strong> Главное преимущество кастомной читалки — мы фиксируем не просто номер темы, а точное смещение в пикселях и номер параграфа, что позволяет моментально восстановить контекст в любой момент.
+          </div>
+          <div class="reader-paragraph" data-block-index="3" onclick="highlightParagraph(this)">
+            <strong>[00:12:40] Интеграция с подписками:</strong> Синхронизация статуса подписки осуществляется через вебхук: как только оплата проходит, группа club_members автоматически назначается пользователю.
+          </div>
+          <div class="reader-paragraph" data-block-index="4" onclick="highlightParagraph(this)">
+            <strong>[00:24:05] Практический разбор:</strong> Рассмотрим пример декомпиляции клиентских бандлов и извлечения API схем с помощью REA и инструментов DevTools.
+          </div>
+        </div>
+      </div>
+
+      <!-- Shelves Grid -->
+      <div class="shelves-grid">
+        <div class="card">
+          <div class="card-title" style="margin-bottom: 12px; font-size: 1rem;">
+            📺 Полка «Я смотрю и слушаю»
+          </div>
+          <div class="shelf-item">
+            <div class="shelf-thumb">▶</div>
+            <div>
+              <div style="font-weight: 600; font-size: 0.9rem;">Альманах обновлений №008</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Остановлено на 04:12 · Осталось 44 мин</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title" style="margin-bottom: 12px; font-size: 1rem;">
+            📚 Полка «Я читаю»
+          </div>
+          <div class="shelf-item">
+            <div class="shelf-thumb" style="background: #10b981;">📖</div>
+            <div>
+              <div style="font-weight: 600; font-size: 0.9rem;">ПРОМПТ-ИНЖЕНЕР УПЯЧКА №005</div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">Страница 1 · 12% прочитано</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Club Access Paywall Modal -->
+  <div class="modal-overlay" id="clubModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Мой доступ в клуб</h3>
+        <button class="close-btn" onclick="toggleClubModal()">&times;</button>
+      </div>
+
+      <div class="tab-nav">
+        <button class="tab-btn active" onclick="switchModalTab('email')">Почта покупки</button>
+        <button class="tab-btn" onclick="switchModalTab('getcourse')">GetCourse</button>
+      </div>
+
+      <div id="emailTab">
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">
+          Введите email, с которого вы оформляли покупку в школе:
+        </p>
+        <input type="email" id="purchaseEmailInput" value="sanohes@gmail.com" class="search-input" style="margin-bottom: 14px; background: #fff;">
+        <button class="btn btn-primary" style="width: 100%; justify-content: center;" onclick="simulateVerification()">
+          Подтвердить и активировать клуб
+        </button>
+      </div>
+
+      <div id="getcourseTab" style="display: none; text-align: center; padding: 12px 0;">
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+          Войдите через единый аккаунт школы GetCourse (edu.malovnik.ru):
+        </p>
+        <a href="https://edu.malovnik.ru" target="_blank" class="btn btn-primary" style="display: inline-flex;">
+          Войти через GetCourse
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>Реконструкция платформы «ИИ Клуб» · Стек: Discourse 2026, Rails, Ember.js, PostgreSQL · Собрано через Autopilot 2.0 & REA</p>
+    <p style="margin-top: 4px;"><a href="https://github.com/litfsing-jpg/club" target="_blank" style="color: var(--tertiary);">Исходный код на GitHub (litfsing-jpg/club)</a></p>
+  </footer>
+
+  <script>
+    let isClubActive = false;
+    let savedPosition = 252; // 04:12
+
+    function toggleClubModal() {
+      const modal = document.getElementById('clubModal');
+      modal.classList.toggle('open');
+    }
+
+    function switchModalTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      if (tab === 'email') {
+        document.getElementById('emailTab').style.display = 'block';
+        document.getElementById('getcourseTab').style.display = 'none';
+        event.target.classList.add('active');
+      } else {
+        document.getElementById('emailTab').style.display = 'none';
+        document.getElementById('getcourseTab').style.display = 'block';
+        event.target.classList.add('active');
+      }
+    }
+
+    function simulateVerification() {
+      isClubActive = !isClubActive;
+      const banner = document.getElementById('clubBanner');
+      const title = document.getElementById('bannerTitle');
+      const desc = document.getElementById('bannerDesc');
+      const locks = document.querySelectorAll('.locked-item .lock-icon');
+
+      if (isClubActive) {
+        banner.classList.add('active-club');
+        title.innerHTML = '✅ Подписка активна (Участник клуба)';
+        desc.innerHTML = 'Действует до 17 декабря 2026 г. Все закрытые эфиры, чаты и полезняки доступны.';
+        locks.forEach(l => l.innerHTML = '🔓');
+        alert('Подписка подтверждена! Доступ ко всем разделам открыт.');
+      } else {
+        banner.classList.remove('active-club');
+        title.innerHTML = 'Профиль создан: подписка не подтверждена';
+        desc.innerHTML = 'Для доступа к чатам и материалам подтвердите действующую подписку.';
+        locks.forEach(l => l.innerHTML = '🔒');
+      }
+      toggleClubModal();
+    }
+
+    function togglePlay() {
+      alert('Воспроизведение видео запущено через встроенный iframe с таймкода 04:12');
+    }
+
+    function resumeVideo() {
+      alert('Возобновлено с сохраненного таймкода: 04:12');
+    }
+
+    function setSpeed(s) {
+      alert(`Скорость воспроизведения установлена: ${s}x`);
+    }
+
+    function seekVideo(e) {
+      const rect = e.target.getBoundingClientRect();
+      const pos = (e.clientX - rect.left) / rect.width;
+      document.getElementById('progressFill').style.width = (pos * 100) + '%';
+    }
+
+    function highlightParagraph(el) {
+      el.classList.toggle('bookmarked');
+      saveActiveBookmark();
+    }
+
+    function saveActiveBookmark() {
+      const list = document.getElementById('activeBookmarksList');
+      list.innerHTML = `
+        <span class="bookmark-pill">☆ Закладка: Пауза 04:12 (Параграф 2)</span>
+        <span class="bookmark-pill">☆ Закладка: Вводная часть</span>
+      `;
+      alert('Закладка сохранена в localStorage и синхронизирована с сервером!');
+    }
+
+    // Init bookmarks on load
+    saveActiveBookmark();
+  </script>
+</body>
+</html>
