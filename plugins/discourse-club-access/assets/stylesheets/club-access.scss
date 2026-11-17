@@ -1,0 +1,32 @@
+.club-access-card {
+  background: var(--secondary);
+  border: 1px solid var(--primary-low);
+  border-radius: 8px;
+  padding: 24px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  .club-access-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .club-access-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+
+    &.active {
+      background: #e6f4ea;
+      color: #137333;
+    }
+
+    &.inactive {
+      background: #fce8e6;
+      color: #c5221f;
+    }
+  }
+}

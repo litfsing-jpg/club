@@ -1,0 +1,11 @@
+plugins:
+  club_access_enabled:
+    default: true
+    client: true
+  club_access_webhook_secret:
+    default: ""
+    secret: true
+  club_access_group_name:
+    default: "club_members"
+  club_access_getcourse_url:
+    default: "https://edu.malovnik.ru"
